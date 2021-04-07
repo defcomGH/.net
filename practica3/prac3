@@ -386,3 +386,40 @@ k = Console.ReadKey(true);
 
             Console.ReadKey();
         }
+        
+        
+        EJERCICIO 13
+        ============\
+        
+        
+        static Boolean verificarExpresion(string str){
+            Stack p= new Stack();
+            for (int i=0;i<str.Length;i++){
+                 if(str[i]== '(') {
+                     p.Push(str[i]);
+                 }
+                 if(str[i]== ')'){
+                     if(p.Count != 0){
+                         p.Pop();
+                     }
+                     else
+                     {
+                         return false;
+                     }
+                 }
+            }
+            if(p.Count == 0) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        static void Main(string[] args)
+        
+        {
+            Stack pila = new Stack();
+            string expresion= "(a+b*(c))";
+            Console.WriteLine(verificarExpresion(expresion));
+            Console.ReadKey();
+        }
