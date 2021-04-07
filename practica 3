@@ -1,0 +1,242 @@
+
+EJERCICIO 01
+============
+static void Main(string[] args)
+{
+Console.CursorVisible = false;
+ConsoleKeyInfo k = Console.ReadKey(true);
+while (k.Key != ConsoleKey.End)
+{
+Console.Clear();
+Console.Write($"{k.Modifiers}-{k.Key}-{k.KeyChar}");
+k = Console.ReadKey(true);
+}
+}            
+*/
+
+        /*
+        EJERCICIO 02
+        ============
+        static void Main(string[] args)
+        {
+            double[,] mat = new double[4, 4];
+            for (int i = 0; i <= 15; i++)
+            {
+                mat[i / 4, i % 4] = i;
+            }
+            ImprimirMatriz(mat);
+        }
+        static void ImprimirMatriz(double[,] matriz)
+        {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    Console.Write($"{matriz[i,j], 3}");
+                }
+                Console.WriteLine();
+            }
+        }
+        */
+
+        /*
+        EJERCICIO 03
+        ============
+        static void Main(string[] args)
+        {
+            double[,] mat = new double[4, 4];
+            string format = "0.0";
+            for (int i = 0; i <= 15; i++)
+            {
+                mat[i / 4, i % 4] = i;
+            }
+            ImprimirMatriz(mat, format);
+        }
+        static void ImprimirMatriz(double[,] matriz, string formatString)
+        {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    Console.Write($"{matriz[i, j].ToString(formatString),5}");
+                }
+                Console.WriteLine();
+            }
+        }
+        
+        */
+
+        /*
+        EJERCICIO 04
+        ============
+        static void Main(string[] args)
+        {
+            double[,] mat = generadorDeMatrices(4,4);
+            try{
+                ImprimirMatriz(mat);
+                ImprimirDiagonal(GetDiagonalSecundaria(mat), "Diagonal principal: ");
+                ImprimirDiagonal(GetDiagonalSecundaria(mat), "Diagonal secundaria: ");
+            }catch (ArgumentException e){
+                Console.WriteLine(e.Message);
+            }
+        }
+        static double[,] generadorDeMatrices(int a, int b){
+            double[,] mat = new double[a, b];
+            for (int i = 0; i <= ((a*b)-1); i++)
+            {
+                mat[i / b, i % b] = i;
+            }
+            return mat;
+        }
+        static double[] GetDiagonalPrincipal(double[,] matriz)
+        {
+            checkSquare(matriz);
+            double[] diag = new double[matriz.GetLength(0)];
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                diag[i] = matriz[i,i];
+            }
+            return diag;
+        }
+        static double[] GetDiagonalSecundaria(double[,] matriz)
+        {
+            checkSquare(matriz);
+            int dimension = matriz.GetLength(0) - 1;
+            double[] diag = new double[dimension];
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                diag[i] = matriz[i, dimension-i];
+            }
+            return diag;
+        }
+        static double[] GetDiagonal(double[,] matriz, bool principal)
+        {
+            checkSquare(matriz);
+            int dimension = matriz.GetLength(0) - 1;
+            double[] diag = new double[dimension];
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                diag[i] = matriz[i, principal ? i : dimension-i];
+            }
+            return diag;
+        }
+        static void checkSquare(double[,] matriz){
+            if(matriz.GetLength(0)!=matriz.GetLength(1)){
+                throw new ArgumentException("La matriz no es cuadrada");
+            }
+            return;
+        }
+         static void ImprimirMatriz(double[,] matriz)
+        {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    Console.Write($"{matriz[i, j],5}");
+                }
+                Console.WriteLine();
+            }
+        }
+          static void ImprimirDiagonal(double[] diag, string texto)
+        {
+            Console.WriteLine();
+            Console.WriteLine(texto);
+            for (int i = 0; i < diag.Length; i++)
+            {
+                    Console.Write($"{diag[i],5}");
+            }
+            Console.WriteLine();
+        }       
+        */
+
+        /*
+        EJERCICIO 05
+        ============
+        
+                static void Main(string[] args)
+        {
+            double[,] mat = generadorDeMatrices(4,4);
+            Console.WriteLine("Matriz original: ");
+            ImprimirMatriz(mat);
+            Console.WriteLine();
+            Console.WriteLine("Array de arrays: ");
+            ImprimirArrayDeArrays(GetArregloDeArreglo(mat));
+        }
+        static double[,] generadorDeMatrices(int a, int b){
+            double[,] mat = new double[a, b];
+            for (int i = 0; i <= ((a*b)-1); i++)
+            {
+                mat[i / b, i % b] = i;
+            }
+            return mat;
+        }
+        static double[][] GetArregloDeArreglo(double [,] matriz){
+            double[][] newMat = new double[matriz.GetLength(1)][];
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                newMat[i] = new double[matriz.GetLength(0)];
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    newMat[i][j] = matriz[i,j];
+                }
+            }
+            return newMat;
+        }
+        static void ImprimirMatriz(double[,] matriz)
+        {
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    Console.Write($"{matriz[i, j],5}");
+                }
+                Console.WriteLine();
+            }
+        }
+        static void ImprimirArrayDeArrays(double[][] matriz)
+        {
+            for (int i = 0; i < matriz.Length; i++)
+            {
+                for (int j = 0; j < matriz[i].Length; j++)
+                {
+                    Console.Write($"{matriz[i][j],5}");
+                }
+                Console.WriteLine();
+            }
+        }
+
+
+        EJERCICIO 06
+        ============
+
+          //suma
+        static double[,] SumarMatrices(double [,] m1,double [,] m2){
+                    if((m1.GetLength(0)== m1.GetLength(0))&& (m2.GetLength(1) ==m2.GetLength(1))) {
+                        double[,] suma= new double[m1.GetLength(0),m1.GetLength(1)];
+                        for (int i=0;i<m1.GetLength(0);i++){
+                            for(int j=0; j<m1.GetLength(1);j++){
+                                suma[i,j]= m1[i,j] + m2[i,j];
+                            }
+                        }
+                        return suma;
+                    }
+                    return null;
+                }
+
+
+
+         // resta 
+
+         static double[,] RestarMatrices(double [,] m1,double [,] m2){
+                    if((m1.GetLength(0)== m1.GetLength(0))&& (m2.GetLength(1) ==m2.GetLength(1))) {
+                        double[,] suma= new double[m1.GetLength(0),m1.GetLength(1)];
+                        for (int i=0;i<m1.GetLength(0);i++){
+                            for(int j=0; j<m1.GetLength(1);j++){
+                                suma[i,j]= m1[i,j] - m2[i,j];
+                            }
+                        }
+                        return suma;
+                    }
+                    return null;
+                }
+
