@@ -423,3 +423,23 @@ k = Console.ReadKey(true);
             Console.WriteLine(verificarExpresion(expresion));
             Console.ReadKey();
         }
+        
+        
+        EJERCICIO 14
+        ============
+        
+        
+        
+        Stack c = new Stack ();
+
+            int num = 35;
+
+            while(num > 0){
+                c.Push(num % 2);
+                num = num / 2;
+            }
+
+            while (c.Count !=0)  {
+                Console.WriteLine(c.Pop());
+            }
+            Console.Read();
