@@ -443,3 +443,52 @@ k = Console.ReadKey(true);
                 Console.WriteLine(c.Pop());
             }
             Console.Read();
+            
+         EJERCICIO 15
+         ============
+         
+         
+         static void Main()
+                {
+                int x = 0;
+                try
+                {
+                Console.WriteLine(1.0 / x); // no genera ninguna excepcion ya que en c# al dividi run numero real por cero nos da infinito
+                Console.WriteLine(1 / x); // genera una excepcion ya que en c# no puedo dividir un entero por cero
+                Console.WriteLine("todo OK");
+                }
+                catch (Exception e)
+                {
+                Console.WriteLine(e.Message);
+                }
+                }
+            
+         EJERCICIO 16 
+         ============
+         
+         static void Main(string[] args)
+        {
+            
+            String str;
+            str=Console.ReadLine();
+            while(str != ""){
+                try{
+                    for(int i=0;i<str.Length;i++){
+                        int aux =(int)str[i];
+                        if ((48 > (int)str[i]) || (57 < (int)str[i])){
+                            throw(new ArgumentException());
+                        }             
+                    }
+                    Console.WriteLine("NUMERO VALIDO");
+                }
+                catch
+                {
+                    Console.WriteLine("NUMERO INVALIDO");
+                }
+                str=Console.ReadLine(); 
+            }
+
+            Console.ReadKey();
+
+            
+        }
