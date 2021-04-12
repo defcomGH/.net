@@ -128,3 +128,158 @@ class Ecuacion2{
             }
         }
         
+        
+EJERCICIO 7 
+==============
+
+
+
+static void Main(string[] args)
+        {
+           
+            Nodo n = new Nodo(7);
+            n.Insertar(8);
+            n.Insertar(10);
+            n.Insertar(3);
+            n.Insertar(1);
+            n.Insertar(5);
+            n.Insertar(14);
+            foreach (int i in n.GetInOrder())
+            {
+            Console.Write(i + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine(n.GetAltura());
+            Console.WriteLine(n.GetCantNodos());
+            Console.WriteLine(n.GetValorMaximo());
+            Console.WriteLine(n.GetValorMinimo());
+            Console.ReadKey();
+
+        }
+        
+
+        class Nodo {
+            private int valor;
+            private Nodo hijoIzquierdo=null;
+            private Nodo hijoDerecho=null;
+
+            public Nodo(int n){
+                this.valor=n;
+            }
+
+            public Boolean Insertar (int n){
+                if(n == valor)
+                {
+                    Console.WriteLine("El valor ingresado ya está dentro del arbol");
+                    return false;
+                }
+                if(n>valor){
+                    if(hijoDerecho != null)
+                    {
+                       return hijoDerecho.Insertar(n);
+                    }
+                    else
+                    {
+                        hijoDerecho = new Nodo(n);
+                        return true;
+                    }
+                }
+                else
+                {
+                    if(hijoIzquierdo != null)
+                    {
+                       return hijoIzquierdo.Insertar(n);
+                    }
+                    else
+                    {
+                        hijoIzquierdo = new Nodo(n);
+                        return true;
+                    }
+                }
+            }
+
+
+            public ArrayList GetInOrder(){
+                    ArrayList l = new ArrayList();
+                    GetInOrder(ref l);
+                    return l;
+
+            }
+
+            private void GetInOrder (ref ArrayList l)
+            {
+                if(hijoIzquierdo!= null)
+                {
+                    hijoIzquierdo.GetInOrder(ref l);
+                }
+
+                l.Add(this.valor);
+                if(hijoDerecho != null)
+                {
+                    hijoDerecho.GetInOrder(ref l);
+                }
+            }
+
+            public int GetAltura(){
+                int x=0;
+                GetAltura(ref x,0);
+                return x;
+            }
+            private void GetAltura(ref int n,int k){
+                if(n < k) {
+                    n=k;
+                }
+                if(hijoIzquierdo!=null)
+                {
+                    hijoIzquierdo.GetAltura(ref n,k+1);
+                }
+                if(hijoDerecho!= null)
+                {
+                    hijoDerecho.GetAltura(ref n,k+1);
+                }
+            }
+
+
+            public int GetCantNodos()
+            {
+                int x = 0;
+                GetCantNodos(ref x);
+                return x;
+            }
+            private void GetCantNodos(ref int n)
+            {
+                n++;
+                if(hijoIzquierdo != null){
+                    hijoIzquierdo.GetCantNodos(ref n);
+                }  
+                if(hijoDerecho != null)
+                {
+                    hijoDerecho.GetCantNodos (ref n);
+                }
+            }
+
+            public int GetValorMaximo ()
+            {
+                if(hijoDerecho!= null)
+                {
+                    return hijoDerecho.GetValorMaximo();
+                }
+                else
+                {
+                    return valor;
+                }
+            }
+
+            public int GetValorMinimo ()
+            {
+                if(hijoIzquierdo!= null)
+                {
+                    return hijoIzquierdo.GetValorMinimo();
+                }
+                else
+                {
+                    return valor;
+                }
+            }
+           
+        }
