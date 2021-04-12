@@ -76,3 +76,55 @@ EJERCICIO 4
                 Console.WriteLine(Horas + "    horas,   " + Minutos + "    minutos,   " +  Segundos + "    sesgundos. " );
             }
         }
+        
+        
+EJERCICIO 6
+
+============
+
+
+class Ecuacion2{
+            private int a,b,c;
+            public Ecuacion2 (int a,int b, int c){
+                this.a=a;
+                this.b=b;
+                this.c=c;
+            }
+
+            public double GetDiscriminante(){
+                return Math.Pow(b,2) -4*a*c;
+            }
+
+            public Int16 GetCantidadRaices(){
+                if(GetDiscriminante() < 0){
+                    return 0;
+                }
+                if(GetDiscriminante() == 0){
+                    return 1;
+                }
+               
+                return 2;
+                
+            }
+
+            public void ImprimirRaices(){
+                if(GetDiscriminante() < 0){
+                    Console.WriteLine("La ecuacion no tiene ninguna raiz");
+                }
+                if(GetDiscriminante() == 0){
+                    Console.Write("La ecuacion tiene una unica solución y es : x = ");
+                    Console.WriteLine(-((double)b)/(2*(double)a));
+                }
+               if(GetDiscriminante() > 0){
+                    Console.Write("La ecuacion tiene dos soluciones x1 = ");
+                  //  Console.WriteLine(Math.Pow(b,2));
+                   // Console.WriteLine(4*a*c);
+                   // Console.WriteLine(Math.Sqrt(Math.Pow(b,2)- 4*a*c));
+                    Console.WriteLine((-b+ Math.Sqrt(Math.Pow(b,2)- 4*a*c))/(2*a));
+                    Console.Write(" y  x2 = ");
+                    Console.WriteLine((-b - Math.Sqrt(Math.Pow(b,2)- 4*a*c))/(2*a));
+                    
+                }
+            }
+        }
+        
