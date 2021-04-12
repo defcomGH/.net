@@ -1,0 +1,48 @@
+EJERCICIO 1 2 3
+
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Persona p = new Persona();
+            p.Imprimir();
+            Console.ReadKey();
+
+        }
+        class Persona
+        {
+            private String Nombre;
+            private Int16 Edad;
+
+            private int Dni;
+
+
+            public Persona(){
+                Console.WriteLine("Ingrese sus datos");
+                String str1 = Console.ReadLine();
+                String[] str2=str1.Split(',');
+
+                Console.WriteLine(str2.Length);
+                if(str2.Length == 3){
+                    this.Nombre = str2[0];
+                    this.Edad = Int16.Parse(str2[1]);
+                    this.Dni = int.Parse(str2[2]);
+                }
+                else
+                {
+                    Console.WriteLine("Error en la carga de datos");
+                }
+            }
+            public Boolean esMayorQue(Persona p){
+                return(this.Edad > p.Edad);
+            }
+            public override String ToString(){
+                return this.Nombre +"   "+ this.Dni +"   " + this.Edad;
+            }
+
+            public void Imprimir(){
+                Console.WriteLine(this.ToString());
+            }
+        }
+    }
