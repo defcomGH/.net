@@ -1,0 +1,72 @@
+EJERCICIO 1 =========================================================================================================================================================
+
+class Program1
+        {
+            
+            static void Main() {
+                Cuenta c1 = new Cuenta();
+                c1.Depositar(100).Depositar(50).Extraer(120).Extraer(50);
+                Cuenta c2 = new Cuenta();
+                c2.Depositar(200).Depositar(800);
+                new Cuenta().Depositar(20).Extraer(20);
+                c2.Extraer(1000).Extraer(1);
+                Console.WriteLine("\nDETALLE");
+                Cuenta.ImprimirDetalle();
+                Console.ReadKey();
+             
+            }
+
+            class Cuenta {
+                double monto;   
+                static int contadorID = 1; 
+
+                static int depositos = 0;
+                static double totalDepositado=0;
+                static int extracciones = 0;
+
+                static int faltaFondos = 0;
+
+                static double totalExtraido = 0;
+                int id;
+
+
+                public Cuenta (){
+                   
+                    this.monto=0;
+                    this.id= Cuenta.contadorID++;
+                    Console.WriteLine($"Se creó la cuenta ID = {this.id}");
+                }
+                public Cuenta Depositar(double n){
+                    Cuenta.depositos++;
+                    Cuenta.totalDepositado+=n;
+                    monto+= n;
+                    Console.WriteLine($"Se depositó {n} en la cuenta {this.id}  (Saldo = {this.monto})");
+                    return this;
+                }
+                public Cuenta Extraer(double n){
+                    if(this.monto - n >= 0){
+                        Cuenta.extracciones++;
+                        Cuenta.totalExtraido+=n;
+                        this.monto-=n;
+                        Console.WriteLine($"Se extrajo {n} de la cuenta {this.id}");
+                    }
+                    else{
+                        Console.WriteLine("Operación denegada. Saldo inuficiente");
+                        Cuenta.faltaFondos++;
+                    }
+                    return this;
+                }
+
+                public static void ImprimirDetalle(){
+                    Console.WriteLine("DETALLE");
+                    Console.WriteLine($"CUENTAS CREADAS: {Cuenta.contadorID - 1} {'\n'}DEPÓSITOS: {Cuenta.depositos} - Total depositado: {Cuenta.totalDepositado}");
+                    Console.WriteLine($"EXTRACCIONES: {Cuenta.extracciones} - Total extraído {Cuenta.totalExtraido}");
+                    Console.WriteLine($"                        Saldo: {Cuenta.totalDepositado - Cuenta.totalExtraido}"); 
+                    Console.WriteLine($"Se denegaron {Cuenta.faltaFondos} extracciones por falta de fondos");
+                }
+           }
+
+            
+            
+
+        }
