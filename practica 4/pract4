@@ -489,5 +489,106 @@ static void Main(string[] args)
                    
 
         }
+        
+             
            
     }
+    
+    
+    
+    
+    EJERCICIO 9 =================================================================================================================
+    
+    si se instancia afuera con static se le pone el valor null por defecto en cambio adentro del main como que no (preguntar en clase de consulta);
+
+
+  EJERCICIO 10 =================================================================================================================
+  
+            para lograr la sobrecarga si o si debemos de pasar distintos parametros no sirve con que devuelvan cosas diferentes
+            
+            
+            
+  EJERCICIO 11 =================================================================================================================         
+            dynamic d1: 5 dynamic d2:5
+            entero: 5 objeto:5
+            entero: 5 objeto:5
+            dynamic d1: 5 dynamic d2:5
+            entero: 5 objeto:5
+            
+            
+   EJERCICIO 12 =========================================================================================================================
+   
+   
+   class Program1
+        {
+            
+            static void Main() {
+                Cuenta cuenta = new Cuenta();
+                cuenta.Imprimir();
+                cuenta = new Cuenta(30222111);
+                cuenta.Imprimir();
+                cuenta = new Cuenta("José Perez");
+                cuenta.Imprimir();
+                cuenta = new Cuenta("Maria Diaz", 20287544);
+                cuenta.Imprimir();
+                cuenta.Depositar(200);
+                cuenta.Imprimir();
+                cuenta.Extraer(150);
+                cuenta.Imprimir();
+                cuenta.Extraer(1500);
+                Console.ReadKey();
+            }
+            class Cuenta {
+                private double _monto;
+                private int _titularDNI;
+                private string _titularNombre;
+                public Cuenta(){
+                    this._titularDNI= -1 ;
+                    this._titularNombre = "No especificado";
+                    this._monto = 0;  
+                }
+                public Cuenta (String s, int n){
+                    this._titularDNI= n;
+                    this._titularNombre = s;
+                    this._monto = 0;
+                }
+                public Cuenta(String s):this(){
+                    this._titularNombre = s;
+                }
+                public Cuenta(int n):this(){
+                    this._titularDNI= n;
+                }
+                public void Imprimir (){
+                    if(_titularDNI == -1){
+                        Console.WriteLine($"Nombre: {this._titularNombre}, DNI : No especificado, Monto: {this._monto}");
+                    }
+                    else{
+                        Console.WriteLine($"Nombre: {this._titularNombre}, DNI : {this._titularDNI}, Monto: {this._monto}");
+                    }
+                    
+                    
+                }
+
+                public void Depositar(double n){
+                    this._monto+=n;
+                }
+                public void Extraer(double n){
+                    if(this._monto - n > 0){
+                        this._monto-= n;
+                    }
+                    else{
+                        Console.WriteLine("Operacion cancelada, monto insuficiente");
+                    }
+                }
+            }
+            
+
+        }
+        
+        
+        
+        
+        EJERCICIO 13======================================================================================================================================
+        
+         st4 = "valor por defecto";
+                st=(st1 ?? (st2 ?? st3)) ?? st4;
