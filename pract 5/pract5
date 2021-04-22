@@ -70,3 +70,214 @@ class Program1
             
 
         }
+        
+       
+       EJERCICIO 2 ===========================================================================================================================
+       
+       
+       using System;
+using System.Text;
+using System.Diagnostics;
+using System.Collections;
+//using System.Threading;
+namespace teoria1
+{
+    
+        class Program1
+        {
+            
+             static void Main() {
+                new Cuenta();
+                new Cuenta();
+                ArrayList cuentas = Cuenta.GetCuentas();
+                // se recuperó la lista de cuentas creadas
+                (cuentas[0] as Cuenta).Depositar(50);
+                // se depositó 50 en la primera cuenta de la lista devuelta
+                cuentas.RemoveAt(0);
+                Console.WriteLine(cuentas.Count);
+                // se borró un elemento de la lista devuelta
+                // pero la clase Cuenta sigue manteniendo todos
+                // los datos "La cuenta id: 1 tiene 50 de saldo"
+                cuentas = Cuenta.GetCuentas();
+                Console.WriteLine(cuentas.Count);
+                // se recupera nuevamente la lista de cuentas
+                (cuentas[0] as Cuenta).Extraer(30);
+                //se extrae 25 de la cuenta id: 1 que tenía 50 de saldo
+                Console.ReadKey();
+            }
+
+            class Cuenta {
+                double monto;   
+                static int contadorID = 1; 
+
+                static int depositos = 0;
+                static double totalDepositado=0;
+                static int extracciones = 0;
+
+                static int faltaFondos = 0;
+
+                static double totalExtraido = 0;
+                int id;
+
+                static ArrayList listaCuentas = new ArrayList();
+
+
+
+                public Cuenta (){
+                   
+                    this.monto=0;
+                    this.id= Cuenta.contadorID++;
+                    Console.WriteLine($"Se creó la cuenta ID = {this.id}");
+                    listaCuentas.Add(this);
+                }
+                public Cuenta Depositar(double n){
+                    Cuenta.depositos++;
+                    Cuenta.totalDepositado+=n;
+                    monto+= n;
+                    Console.WriteLine($"Se depositó {n} en la cuenta {this.id}  (Saldo = {this.monto})");
+                    return this;
+                }
+                public Cuenta Extraer(double n){
+                    if(this.monto - n >= 0){
+                        Cuenta.extracciones++;
+                        Cuenta.totalExtraido+=n;
+                        this.monto-=n;
+                        Console.WriteLine($"Se extrajo {n} de la cuenta {this.id}");
+                    }
+                    else{
+                        Console.WriteLine("Operación denegada. Saldo inuficiente");
+                        Cuenta.faltaFondos++;
+                    }
+                    return this;
+                }
+                public static ArrayList GetCuentas() {
+                    ArrayList aux1 = new ArrayList();
+                    foreach(Cuenta item in Cuenta.listaCuentas){
+                        aux1.Add(item);
+                    }
+                    return aux1;
+                    
+                } 
+                public static void ImprimirDetalle(){
+                    Console.WriteLine("DETALLE");
+                    Console.WriteLine($"CUENTAS CREADAS: {Cuenta.contadorID - 1} {'\n'}DEPÓSITOS: {Cuenta.depositos} - Total depositado: {Cuenta.totalDepositado}");
+                    Console.WriteLine($"EXTRACCIONES: {Cuenta.extracciones} - Total extraído {Cuenta.totalExtraido}");
+                    Console.WriteLine($"                        Saldo: {Cuenta.totalDepositado - Cuenta.totalExtraido}"); 
+                    Console.WriteLine($"Se denegaron {Cuenta.faltaFondos} extracciones por falta de fondos");
+                }
+
+                
+           }
+        }
+}
+
+
+
+
+       EJERCICIO 3 ===========================================================================================================================
+       
+       
+       
+       using System;
+using System.Text;
+using System.Diagnostics;
+using System.Collections;
+//using System.Threading;
+namespace teoria1
+{
+    
+        class Program1
+        {
+            
+             static void Main() {
+                new Cuenta();
+                new Cuenta();
+                ArrayList cuentas = Cuenta.Cuentas;
+                // se recuperó la lista de cuentas creadas
+                (cuentas[0] as Cuenta).Depositar(50);
+                // se depositó 50 en la primera cuenta de la lista devuelta
+                cuentas.RemoveAt(0);
+                Console.WriteLine(cuentas.Count);
+                // se borró un elemento de la lista devuelta
+                // pero la clase Cuenta sigue manteniendo todos
+                // los datos "La cuenta id: 1 tiene 50 de saldo"
+                cuentas = Cuenta.Cuentas;
+                Console.WriteLine(cuentas.Count);
+                // se recupera nuevamente la lista de cuentas
+                (cuentas[0] as Cuenta).Extraer(30);
+                //se extrae 25 de la cuenta id: 1 que tenía 50 de saldo
+                Console.ReadKey();
+            }
+
+            class Cuenta {
+                double monto;   
+                static int contadorID = 1; 
+
+                static int depositos = 0;
+                static double totalDepositado=0;
+                static int extracciones = 0;
+
+                static int faltaFondos = 0;
+
+                static double totalExtraido = 0;
+                int id;
+
+                private static ArrayList listaCuentas = new ArrayList();
+
+                
+                public static ArrayList Cuentas {
+                get {
+                ArrayList aux1 = new ArrayList();
+                            foreach(Cuenta item in Cuenta.listaCuentas){
+                                aux1.Add(item);
+                            }
+                            return aux1;
+                }
+             
+                }
+
+
+                public Cuenta (){
+                   
+                    this.monto=0;
+                    this.id= Cuenta.contadorID++;
+                    Console.WriteLine($"Se creó la cuenta ID = {this.id}");
+                    listaCuentas.Add(this);
+                }
+                public Cuenta Depositar(double n){
+                    Cuenta.depositos++;
+                    Cuenta.totalDepositado+=n;
+                    monto+= n;
+                    Console.WriteLine($"Se depositó {n} en la cuenta {this.id}  (Saldo = {this.monto})");
+                    return this;
+                }
+                public Cuenta Extraer(double n){
+                    if(this.monto - n >= 0){
+                        Cuenta.extracciones++;
+                        Cuenta.totalExtraido+=n;
+                        this.monto-=n;
+                        Console.WriteLine($"Se extrajo {n} de la cuenta {this.id}");
+                    }
+                    else{
+                        Console.WriteLine("Operación denegada. Saldo inuficiente");
+                        Cuenta.faltaFondos++;
+                    }
+                    return this;
+                }
+
+
+
+                public static void ImprimirDetalle(){
+                    Console.WriteLine("DETALLE");
+                    Console.WriteLine($"CUENTAS CREADAS: {Cuenta.contadorID - 1} {'\n'}DEPÓSITOS: {Cuenta.depositos} - Total depositado: {Cuenta.totalDepositado}");
+                    Console.WriteLine($"EXTRACCIONES: {Cuenta.extracciones} - Total extraído {Cuenta.totalExtraido}");
+                    Console.WriteLine($"                        Saldo: {Cuenta.totalDepositado - Cuenta.totalExtraido}"); 
+                    Console.WriteLine($"Se denegaron {Cuenta.faltaFondos} extracciones por falta de fondos");
+                }
+
+                
+           }
+        }
+}
+
+
