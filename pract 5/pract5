@@ -491,3 +491,117 @@ EJERCICIO  6   =================================================================
                 
             }
 
+EJERCICIOS 7 y 8 =========================================================================================================================================================
+
+
+static void Main(string[] args)
+        
+            {
+                    Persona p1 = new Persona();
+                    p1.Nombre = "juan";
+                    p1.DNI=123;
+
+                    Persona p2 = new Persona();
+                    p2.Nombre = "rdomingo";
+                    p2.DNI=2345;
+
+                    Persona p3 = new Persona();
+                    p3.Nombre = "ricardito";
+                    p3.DNI=6745;
+
+                    ListaDePersonas listaPersonas = new ListaDePersonas();
+                    listaPersonas.Agregar(p1).Agregar(p2).Agregar(p3);
+
+                    Console.WriteLine(listaPersonas[p1.DNI].Nombre);
+                    Console.WriteLine(listaPersonas[p2.DNI].Nombre);
+                    Console.WriteLine(listaPersonas[p3.DNI].Nombre);
+
+                    foreach(String aux in listaPersonas['r']){
+                            Console.Write(aux + "   ");
+                    }
+
+                    Console.ReadKey();
+            }
+        
+        }
+
+        class Persona {
+            public string Nombre {get;set;} //propiedadesAutoImplementadas
+            public char Sexo{get;set;}
+            public int DNI {get;set;}
+            public DateTime FechaNacimiento {get;set;}
+
+            public int Edad {get;}
+
+            public object this[int n]{
+                get{
+                    switch(n){
+                        case 0: return Nombre;
+                        case 1: return Sexo;
+                        case 2: return DNI;
+                        case 3: return FechaNacimiento;
+                        case 4: return Edad;
+                        default: return null;
+                    }
+                }
+                set{
+                    switch(n){
+                        case 0: Nombre=(String)value;
+                                break;
+                        case 1: Sexo=(Char)value;
+                                break;
+                        case 2: DNI=(int)value;
+                                break;
+                        case 3: FechaNacimiento=(DateTime)value;
+                                break;
+                        default:
+                                Console.WriteLine("Valor de indice incorrecto");
+                                break;
+                        
+                    }
+                }
+            }
+        }
+
+
+        class ListaDePersonas
+        {
+        private Hashtable ht = new Hashtable();
+        public ListaDePersonas Agregar(Persona p)
+        {
+            ht[p.DNI] = p;
+            return this;
+        }
+
+         public Persona this[int n]{
+            get{
+                        try 
+                    {  
+                        return (Persona)ht[n];
+                    }
+                    catch (Exception) 
+                    {
+                        Console.WriteLine( "No existe esa persona!");
+                        return null;
+                    }
+                
+            }
+        }
+
+        public String[] this[char c]{
+            get{
+                StringBuilder str=new StringBuilder(); //declaro un StringBuilder pues voy a realizar sucesivas concatenaciones
+                foreach (int aux in ht.Keys){      //recorro con un foreach todas las llaves de mi tabla hash
+    
+                    if(  ( (Persona) ht[aux]  ).Nombre[0] == c){     //si el nombre de la persona de la tabla hash es igual a mi parametro c
+                        str.Append(( (Persona) ht[aux]  ).Nombre+ '€');   //lo concateno en mi stringBuilder, agrego un caracter para posteriormente usar el método split
+                    }
+                    
+                }
+                return str.ToString().Split('€'); //uso el método split para separar cada nombre y devolver un vector de Strings
+            }
+        }
+
+
+
+
