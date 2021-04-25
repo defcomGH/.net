@@ -604,4 +604,23 @@ static void Main(string[] args)
 
 
 
+EJERCICIOS  10 =========================================================================================================================================================
 
+
+
+                   private static int a; //variable statica A
+        private static readonly int b; //variable estatica de solo lectura aunque modificable en el constructor de la clase
+        public  A() { }    // constructor nulo privado por defecto
+        public A(int i) : this() { }   //constructor publico que llama al constructor nulo definido arriba
+        static A() => b = 2; //constructor estático el cual se ejecuta por defecto en algun momento antes de instanciar la clase. Y puede cambiar b pues es un constructor
+        int c;   //variable privada
+        public static void A1() => a = 1; //método estatico publico que setea el valor de A en 1
+        public int A1(int a) => A.a + a; //metodo estatico publico que devuelve el valor pasador por parametro sumado con la variable estatica 'a' de la clase
+        public static int A2; //variable estatica publica llamada A2
+        static int A3 => 3;  //propiedad papá, te descubrí, publica statica de solo lectura
+        private int A4() => 4; //metodo privado que devuelve 4
+        public int A5 { get => 5; }  //propiedad publica de solo lectura que devuelve 5
+        int A6 { set => c = value; }  // propiedad privada se solo escritura y escribe c
+        public int A7 { get; set; } // propiedad publica de lectura y escritura
+        public int A8 { get; } = 8; //propiedad publica de solo escritura
+        public int this[int i] => i; // propiedad indizada que devuelve el indice que le mandas (muy útil jaja)
