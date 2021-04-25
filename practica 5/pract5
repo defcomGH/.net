@@ -53,3 +53,241 @@ class Program1
                 base.Imprimir();
             }
         }
+        
+        EJERCICIO 2 =====================================================================================================================================================
+                        
+                        static void Main (String[] args)
+            {
+                    A[] vector = new A[] { new C(1), new D(2), new B(3), new D(4), new B(5) };
+                    foreach (A a in vector)
+                    {
+                        if(  (a is B) && !(a is C || a is D) ){ // si o si debo de preguntar que no sean de los tipo C o D ya que 'is' te devuelve true si es parte de la herencia
+                            a.Imprimir();
+                            Console.WriteLine();  
+                        }                   
+                    }
+                    Console.ReadKey();
+
+                   
+            }
+        EJERCICIO 3 =====================================================================================================================================================
+        
+                 static void Main (String[] args)
+                    {
+                            A[] vector = new A[] { new C(1), new D(2), new B(3), new D(4), new B(5) };
+                            foreach (A a in vector)
+                            {
+                                if( a.GetType() == typeof(B)){ // aquí no es necesario preguntar como en el caso anterior
+                                    a.Imprimir();
+                                    Console.WriteLine();  
+                                }                   
+                            }
+                            Console.ReadKey();
+
+
+                    }
+                    
+     EJERCICIO 4 =====================================================================================================================================================
+     
+
+                             using System;
+                        class Program
+                        {
+                        static void Main(string[] args)
+                        {
+                        Taxi t = new Taxi(3);
+                        Console.WriteLine($"Un {t.Marca} con {t.Pasajeros} pasajeros");
+                        }
+                        }
+                        class Auto
+                        {
+                        public string Marca { get; private set; } = "Ford";
+                        public Auto(string marca) => this.Marca = marca;
+                        public Auto() { }
+                        }
+                        class Taxi : Auto
+                        {
+                        public int Pasajeros { get; private set; }
+                        public Taxi(int pasajeros) => this.Pasajeros = pasajeros;
+                        
+                       
+                        }
+         
+        * ¿Por qué no es necesario agregar :base en el constructor de Taxi?
+         
+                - no es necesario ya que como no definimos ningun constructor en la clase taxi esta ya posee el constructor nulo implícito que llama al constructor
+                 nulo de la clase padre Auto que ya está definido, si yo elimino el constructor nulo de la clase auto este codigo tiraria error.       
+        
+        
+        *Eliminar el segundo constructor  de la clase Auto y modificar la clase Taxi para el programa siga funcionando
+                                       
+
+                                         class Auto
+                        {
+                            public string Marca { get; private set; } = "Ford";
+                            public Auto(string marca) => this.Marca = marca;
+
+                        }
+                        class Taxi : Auto
+                        {
+                            public int Pasajeros { get; private set; }
+                            public Taxi(int pasajeros): base("default marca") => this.Pasajeros = pasajeros;
+                        }
+
+
+                        
+   EJERCICIO 6 =============================================================================================================================================
+   
+   
+                   class A
+                {
+                public string M1()   //se debe definir como virtual para que la clase derivada lo pueda ocultar
+                        => "A.M1";
+                }
+                class B : A
+                {
+                public override string M1()
+                         => "B.M1";
+                }
+                        
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                class A  //una clase no abstracta no puede tener un método abstracto
+                {
+                public abstract string M1();
+                }
+                                 class B : A
+                {
+                public override string M1()
+                                 => "B.M1";
+                }                
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                abstract class A
+                {
+                public abstract string M1()
+                          => "A.M1";      // no dr puede declarar comportamiento en un método abstracto
+                }
+                class B : A
+                {
+                public override string M1()
+                         => "B.M1";
+                }
+                
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                class A
+                {
+                public override string M1() //se debe declarar como virtual ya que A no es una clase derivada y no va a encontrar ningún método al cual invalidar
+                         => "A.M1";
+                }
+                class B : A
+                {
+                public override string M1()
+                         => "B.M1";
+                }               
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                class A
+                {
+                public virtual string M1()
+                => "A.M1";
+                }
+                class B : A
+                {
+                protected override string M1()   // cuando invalido un método con otro estos deben tener el mismo identificador de acceso
+                => "B.M1";
+                }
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                 class A
+                {
+                    public static virtual string M1()  //no podemos invalidar un método estático
+                            => "A.M1";
+                    }
+                    class B : A
+                    {
+                    public static override string M1()
+                            => "B.M1";
+                }
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                class A
+                {
+                virtual string M1() => "A.M1"; //un método invalidable no puede ser privado
+                }
+                class B : A
+                {
+                override string M1() => "B.M1";  // no encuentra al miembro validable ya que es privado
+                }
+                
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                     class A
+                    {
+                         protected A(int i) { }
+
+                    }
+                    class B : A
+                    {
+                         B() { }  //por defecto el constructor de la clase derivada llama al constructor nulo de la clase padre pero este no está agregado en la clase padre
+                                       // ya que al declarar otro constructor, el constructor nulo implicito desaparece
+
+                    }
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                        class A
+                    {
+                    private int _id;
+                        protected A(int i) => _id = i;
+                    }
+                    class B : A
+                    {
+                        B(int i):base(5) {
+                            _id=i; //como _id es privada la clase B no tiene alcance, se debería de usar el identificador 'protected'
+                        }
+                    }
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                class A
+                {
+                private int Prop
+                {
+                set; public get; //si queremos definir que un get tenga distinto alcance de un set, debemos de poner el identificador de acceso con mayor rango
+                }                       //en la declaración de la propiedad;
+                }
+                class B : A
+                {
+                }
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                abstract class A
+                    {
+                    public abstract int Prop
+                         {set; get;}   //el metodo abstracto define que la propiedad Prop tiene que ser de lectura y escritura
+                    }
+                    class B : A
+                    {
+                        int f;
+                    public override int Prop
+                    {
+                        get => 5;  //y aca solo definimos la lectura
+                    }
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                abstract class A
+                {
+                public int Prop {set; get;} // no está marcado como virtual
+                }
+                class B : A
+                {
+                public override int Prop {
+                get => 5;
+                set {}
+                }
+                }
+                -----------------------------------------------------------------------------------------------------------------------------------------  
+                
+                
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
