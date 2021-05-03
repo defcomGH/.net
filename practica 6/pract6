@@ -278,8 +278,181 @@ class Program1
                 -----------------------------------------------------------------------------------------------------------------------------------------  
                 
                 
+                
+EJERCICIO 7 =========================================================================================================================================================
+
+
+
+
+
+
+                class Program1
+                {
+
+                    static void Main (String[] args)
+                    {
+                        Imprimidor.Imprimir(new A(), new B(), new C(), new D());
+
+                        Console.ReadKey();
+
+
+                    }
+                abstract class claseLetra {
+                        public abstract void Imprimir();
+                }
+                class A:claseLetra {
+                        public override void  Imprimir() => Console.WriteLine("Soy una instancia A");
+                }
+                class B:claseLetra {
+                        public override void Imprimir() => Console.WriteLine("Soy una instancia B");
+                }
+                class C:claseLetra {
+                        public override void Imprimir() => Console.WriteLine("Soy una instancia C");
+                }
+                class D:claseLetra {
+                        public override void Imprimir() => Console.WriteLine("Soy una instancia D");
+                }
+                static class Imprimidor {
+                        public static void Imprimir(params object[] vector) {
+                                foreach (claseLetra x in vector) {
+                                        x.Imprimir();
+                                }
+                        }
+                }
+
+
+                }
+
+
+
+
+
+
+EJERCICIO 8 =========================================================================================================================================================
+
+
+
+
+
+
+                static void Main (String[] args)
+            {
+                
+                Empleado[] empleados = new Empleado[] {
+                new Administrativo("Ana", 20000000, DateTime.Parse("4/5/2018"), 10000) {Premio=1000},
+                new Vendedor("Diego", 30000000, DateTime.Parse("2/4/2010"), 10000) {Comision=2000},
+                new Vendedor("Luis", 33333333, DateTime.Parse("30/12/2011"), 10000) {Comision=2000}
+                };
+                foreach (Empleado e in empleados)
+                {
+                Console.WriteLine(e);
+                e.AumentarSalario();
+                Console.WriteLine(e);
+                Console.WriteLine();
+                }               
+                  
+                Console.ReadKey();
+
+                   
+            }
+        }
+            public abstract class Empleado 
+            {
+                public string Nombre {get;}
+                public int Dni{get;}
+
+                public DateTime FechaIngreso{get;}
+
+
+                public double SalarioBase {
+                        get;
+                        protected set; //solo accesible desde la propia clase y sus clases derivadas
+                }
+
+                public abstract double Salario {get;} //propiedad abstracta ya que dependiendo del tipo de empleado se calcula de una manera u otra
+
+                public Empleado(string nombre, int dni, DateTime fechaIngreso,double salarioBase) //todos los atributos que tienen en comun los dos tipos de empleado
+                {
+                        this.Nombre=nombre;
+                        this.Dni=dni;
+                        this.FechaIngreso=fechaIngreso;
+                        this.SalarioBase=salarioBase;
+                }
+
+                public abstract void AumentarSalario(); //abstracto ya que dependiendo del tipo de empleado se calcula de manera distinta
+
+
+                
+                public override string ToString(){  //sobreescribo el metodo toString en la clase base ya que las dos clases derivadas tienen los mismos datos aunque uno(Salario) se calcule de manera distinta
+                        TimeSpan dif_fechas = DateTime.Now.Subtract(this.FechaIngreso); //obtiene la diferencia de tiempo entre las dos fechas
+                        int diasDeAntiguedad =  dif_fechas.Days;
+                        int añosDeAntiguedad = diasDeAntiguedad/ 365; //dos valores enteros me dan otro valor entero 
+                        return $"Administrativo Nombre: {this.Nombre}, DNI: {this.Dni}  Antigüedad: {añosDeAntiguedad} \n Salario base: {this.SalarioBase}, Salario: {this.Salario};  ";
+                }
+
+
+                
+
+            }
+
+            public class Administrativo:Empleado {
+                public double Premio{get;set;}
+
+                public override double Salario
+                {
+                        get {return this.SalarioBase + this.Premio;}
+                } 
+                       
+                
+                public Administrativo(string nombre, int dni, DateTime fechaIngreso,double salarioBase) :base(nombre,dni,fechaIngreso,salarioBase)
+                {
                         
-                        
+                }
+
+                public override void AumentarSalario()
+                {
+                        TimeSpan dif_fechas = DateTime.Now.Subtract(this.FechaIngreso); //obtiene la diferencia de tiempo entre las dos fechas
+                        int diasDeAntiguedad =  dif_fechas.Days; //dias de diferencia
+                        int añosDeAntiguedad = diasDeAntiguedad / 365; //dos valores enteros me dan otro valor entero 
+                        this.SalarioBase*=(Math.Pow(1.01,añosDeAntiguedad));
+                }
+
+            }
+
+
+            public class Vendedor:Empleado {
+                
+                public double Comision{get;set;}
+
+                public override double Salario
+                {
+                        get {return this.SalarioBase + this.Comision;}
+                } 
+                public Vendedor(string nombre, int dni, DateTime fechaIngreso,double salarioBase) :base(nombre,dni,fechaIngreso,salarioBase)
+                {
+
+                }
+
+
+                public override void AumentarSalario()
+                 {
+                        TimeSpan dif_fechas = DateTime.Now.Subtract(this.FechaIngreso); //obtiene la diferencia de tiempo entre las dos fechas
+                        int diasDeAntiguedad =  dif_fechas.Days;
+                        int añosDeAntiguedad = diasDeAntiguedad / 365; //dos valores enteros me dan otro valor entero 
+                        if(añosDeAntiguedad < 10)
+                        {
+                                this.SalarioBase*=1.05;    
+                        }
+                        else
+                        {
+                                this.SalarioBase*=1.10;    
+                        }
+                                
+                }
+                
+             
+            }
+
                         
                         
                         
