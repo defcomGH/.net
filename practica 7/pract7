@@ -1,0 +1,144 @@
+EJERCICIO 1 ================================================================================================================================================================
+  static  class Procesador
+    {
+        
+        public static void Main()
+        {
+            Ejecutar();
+            Console.ReadKey();
+        }
+        public static void Ejecutar() {
+
+                Auto auto = new Auto();
+                Libro libro = new Libro();
+                Persona persona = new Persona();
+                Perro perro = new Perro();
+                Pelicula pelicula = new Pelicula();
+
+                Procesador.Alquilar(pelicula, persona);
+                Procesador.Alquilar(libro, persona);
+                Procesador.Atender(persona);
+                Procesador.Atender(perro);
+                Procesador.Devolver(pelicula, persona);
+                Procesador.Devolver(libro, persona);
+                Procesador.Lavar(auto);
+                Procesador.Reciclar(libro);
+                Procesador.Reciclar(auto);
+                Procesador.Secar(auto);
+                Procesador.Vender(auto, persona);
+                Procesador.Vender(perro, persona);
+                            
+        }
+
+        public static void Alquilar (IAlquilable x,Persona p)=> x.Alquilar(p);
+        public static void Devolver (IAlquilable x, Persona p) => x.Devolver(p);
+        public static void Vender (IVendible x,Persona p) => x.Vender(p);
+        public static void Lavar(ILavable x) => x.Lavar();
+        public static void Secar(ILavable x) => x.Secar();
+        public static void Reciclar(IReciclable x) => x.Reciclar();
+        public static void Atender(IAtendible x) => x.Atender();
+    }
+
+    public class Auto :IVendible , ILavable ,IReciclable
+    {
+
+        public void Vender(Persona p)
+        {
+            Console.WriteLine($"vendiendo auto a {p.Nombre}");
+        }
+        public void Lavar()
+        {
+            Console.WriteLine("se lava auto");
+        }
+        public void Secar()
+        {
+            Console.WriteLine("se seca auto");
+        }
+        public void Reciclar(){
+            Console.WriteLine("se recicla auto");
+        }
+    }   
+    public class Libro : IReciclable ,IAlquilable
+    {
+        public void Alquilar(Persona p)
+        {
+            Console.WriteLine($"Alquilando libro a {p.Nombre}");
+        }
+        public void Devolver(Persona p){
+            Console.WriteLine($"{p.Nombre} devuelve libro");
+        }
+        public void Reciclar()
+        {
+            Console.WriteLine("se recicla libro");
+        }
+    }
+    public class Pelicula: IAlquilable
+    {
+        public void Alquilar(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} alquila pelicula");
+        }
+        public void Devolver(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} devuelve pelicula");
+        }
+    }
+    public class Persona :IAtendible
+    {
+        private String _Nombre = "Carlitos";
+        public String Nombre
+        {
+            get{
+                return _Nombre;         
+               }
+        }
+        public void Atender(){
+            Console.WriteLine($"{_Nombre} es atendida");
+        }
+    }
+    public class Perro  : IVendible,IAtendible
+    {
+        public void Vender(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} vende perro :c");
+        }
+        public void Atender()
+        {
+            Console.WriteLine("Perro es atendido");
+        }
+
+    }
+    public interface IAlquilable
+    {
+    
+        public void Alquilar(Persona P);
+      
+        public void Devolver(Persona P);
+    }
+    public interface IVendible
+    {
+        public void Vender(Persona p);
+    }
+    public interface ILavable
+    {
+        public void Lavar();
+        public void Secar();
+    }
+    public interface IReciclable
+    {
+        public void Reciclar();
+    }
+    public interface IAtendible
+    {
+        public void Atender();
+    }
+}
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
+EJERCICIO  ================================================================================================================================================================
