@@ -1039,8 +1039,276 @@ EJERCICIO 5 ====================================================================
         String Nombre {set;get;}
     }
 
-EJERCICIO  ================================================================================================================================================================
-EJERCICIO  ================================================================================================================================================================
-EJERCICIO  ================================================================================================================================================================
-EJERCICIO  ================================================================================================================================================================
-EJERCICIO  ================================================================================================================================================================
+EJERCICIO 6 ================================================================================================================================================================
+  static  class Procesador
+    {
+        
+        public static void Main()
+        {
+            Ejecutar();
+            Console.ReadKey();
+        }
+        public static void Ejecutar() {
+
+            /* 
+            Auto auto = new Auto();
+            Libro libro = new Libro();
+            Persona persona = new Persona();
+            Perro perro = new Perro();
+            Pelicula pelicula = new Pelicula();
+            Procesador.Alquilar(pelicula, persona);
+            Procesador.Alquilar(libro, persona);
+            Procesador.Atender(persona);
+            Procesador.Atender(perro);
+            Procesador.Devolver(pelicula, persona);
+            Procesador.Devolver(libro, persona);
+            Procesador.Lavar(auto);
+            Procesador.Reciclar(libro);
+            Procesador.Reciclar(auto);
+            Procesador.Secar(auto);
+            Procesador.Vender(auto, persona);
+            Procesador.Vender(perro, persona);
+            Procesador.Lavar(perro);
+            Procesador.Secar(perro);
+            Pelicula peliculaClasica = new PeliculaClasica();
+            Procesador.Alquilar(peliculaClasica, persona);
+            Procesador.Devolver(peliculaClasica, persona);
+            Procesador.Vender(peliculaClasica, persona);
+            */
+
+            /*
+            System.Collections.ArrayList lista = new System.Collections.ArrayList() {new Persona(),new Auto()};
+            foreach(IComercial c in lista)
+            {
+            c.Importar();
+            }
+            foreach(IImportante i in lista)
+            {
+            i.Importar();
+            }
+            (lista[0] as Persona).Importar();
+            (lista[1] as Auto).Importar();
+            */
+
+           /* System.Collections.ArrayList lista = new System.Collections.ArrayList() {
+            new Persona() {Nombre="Zulema"},
+            new Perro() {Nombre="Sultán"},
+            new Persona() {Nombre="Claudia"},
+            new Persona() {Nombre="Carlos"},
+            new Perro() {Nombre="Chopper"},
+            };
+           lista.Sort(); //debe ordenar por Nombre alfabéticamente
+            foreach (INombrable n in lista)
+            {
+                Console.WriteLine($"{n.Nombre} es un {n.GetType().Name}");
+            }
+            */
+
+            System.Collections.ArrayList lista = new System.Collections.ArrayList() {
+            new Persona() {Nombre="Ana María"},
+            new Perro() {Nombre="Sultán"},
+            new Persona() {Nombre="Ana"},
+            new Persona() {Nombre="José Carlos"},
+            new Perro() {Nombre="Chopper"}
+            };
+            lista.Sort(new ComparadorLongitudNombre()); //ordena por longitud de Nombre
+            foreach (INombrable n in lista)
+            {
+            Console.WriteLine($"{n.Nombre.Length}: {n.Nombre}");
+            }
+        }
+
+        public static void Alquilar (IAlquilable x,Persona p)=> x.Alquilar(p);
+        public static void Devolver (IAlquilable x, Persona p) => x.Devolver(p);
+        public static void Vender (IVendible x,Persona p) => x.Vender(p);
+        public static void Lavar(ILavable x) => x.Lavar();
+        public static void Secar(ILavable x) => x.Secar();
+        public static void Reciclar(IReciclable x) => x.Reciclar();
+        public static void Atender(IAtendible x) => x.Atender();
+    }
+
+    public class Auto :IVendible , ILavable ,IReciclable ,IComercial,IImportante
+    {
+
+        public void Vender(Persona p)
+        {
+            Console.WriteLine($"vendiendo auto a {p.Nombre}");
+        }
+        public void Lavar()
+        {
+            Console.WriteLine("se lava auto");
+        }
+        public void Secar()
+        {
+            Console.WriteLine("se seca auto");
+        }
+        public void Reciclar(){
+            Console.WriteLine("se recicla auto");
+        }
+        void IImportante.Importar()
+        {
+            Console.WriteLine("Auto importante");
+        }
+        void IComercial.Importar()
+        {
+            Console.WriteLine("Auto que se vende al exterior");
+        }
+        public void Importar()
+        {
+            Console.WriteLine("método importar de clase auto");
+        }
+    }   
+    public class Libro : IReciclable ,IAlquilable
+    {
+        public void Alquilar(Persona p)
+        {
+            Console.WriteLine($"Alquilando libro a {p.Nombre}");
+        }
+        public void Devolver(Persona p){
+            Console.WriteLine($"{p.Nombre} devuelve libro");
+        }
+        public void Reciclar()
+        {
+            Console.WriteLine("se recicla libro");
+        }
+    }
+    public class Pelicula: IAlquilable ,IVendible
+    {
+        public virtual void Alquilar(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} alquila pelicula");
+        }
+        public  virtual void Devolver(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} devuelve pelicula");
+        }
+        public virtual void Vender(Persona p)
+        {
+            Console.WriteLine($"vendiendo pelicula a {p.Nombre}");
+        }
+    }
+    public class PeliculaClasica : Pelicula
+    {
+        public override void Alquilar(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} alquila pelicula clasica");
+        }
+        public override void Devolver(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} devuelve pelicula clasica");
+        }
+        public override void Vender(Persona p)
+        {
+            Console.WriteLine($"vendiendo pelicula clasica a {p.Nombre}");
+        }
+    }
+    public class Persona :IAtendible ,IComercial,IImportante,INombrable
+    {
+        private String _Nombre;
+        public String Nombre
+        {
+            get{
+                return _Nombre;         
+               }
+            set{
+                this._Nombre=value;
+            }
+        }
+        public void Atender(){
+            Console.WriteLine($"{_Nombre} es atendida");
+        }
+        void IImportante.Importar()
+        {
+            Console.WriteLine("Persona importante");
+        }
+        void IComercial.Importar()
+        {
+            Console.WriteLine("Persona que se vende al exterior");
+        }
+        public void Importar()
+        {
+            Console.WriteLine("método importar de clase persona");
+        }
+    }
+    public class Perro  : IVendible,IAtendible,ILavable,INombrable
+    {
+        private String _Nombre;
+        public String Nombre
+        {
+            get{
+                return _Nombre;         
+               }
+            set{
+                this._Nombre=value;
+            }
+        }
+        public void Vender(Persona p)
+        {
+            Console.WriteLine($"{p.Nombre} vende perro :c");
+        }
+        public void Atender()
+        {
+            Console.WriteLine("Perro es atendido");
+        }
+        public void Lavar()
+        {
+            Console.WriteLine("se lava perro");
+        }
+        public void Secar()
+        {
+            Console.WriteLine("se seca perro");
+        }
+
+    
+    }
+    public class ComparadorLongitudNombre : IComparer
+    {
+        public int Compare(object x,object y)
+        {
+            int long1=((INombrable)x).Nombre.Length;
+            int long2=((INombrable)y).Nombre.Length;
+            return long1 - long2;
+        }
+    }
+
+    public interface IAlquilable
+    {
+    
+        public void Alquilar(Persona P);
+      
+        public void Devolver(Persona P);
+    }
+    public interface IVendible
+    {
+        public void Vender(Persona p);
+    }
+    public interface ILavable
+    {
+        public void Lavar();
+        public void Secar();
+    }
+    public interface IReciclable
+    {
+        public void Reciclar();
+    }
+    public interface IAtendible
+    {
+        public void Atender();
+    }
+    public interface IComercial
+    {
+        public void Importar();
+    }
+    public interface IImportante
+    {
+        public void Importar();
+    }
+    public interface INombrable
+    {
+        String Nombre {set;get;}
+    }
+  
+EJERCICIO 7 ================================================================================================================================================================
+EJERCICIO 8 ================================================================================================================================================================
+EJERCICIO 9 ================================================================================================================================================================
+EJERCICIO 10 ================================================================================================================================================================
