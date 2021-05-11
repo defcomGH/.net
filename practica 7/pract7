@@ -1575,6 +1575,79 @@ EJERCICIO 7 ====================================================================
         String Nombre {set;get;}
     }
 EJERCICIO 8 ================================================================================================================================================================
+
+  static  class Program
+    {
+        
+        public static void Main()
+        {
+            IEnumerable rango = Rango(6, 30, 3);
+            IEnumerable potencias = Potencias(2, 10);
+            IEnumerable divisibles = DivisiblesPor(rango, 6);
+            foreach (int i in rango)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+            foreach (int i in potencias)
+            {
+                Console.Write(i + " ");
+            }
+            Console.WriteLine();
+            foreach (int i in divisibles)
+            {
+                Console.Write(i + " ");
+            }
+             Console.ReadKey();
+        }
+        static IEnumerable Rango(int i, int j , int p) //puede devolver IEnumerator pero vamos a tener que usar los métodos .MoveNext() en un while
+        {
+            //este bloque de código es mi iterador los yield te simplifican todo
+            //este método no se ejecuta nunca,  el compilador se encarga de generar una máquina de estados finitos
+             int aux =i;
+            while (true) {
+                i=aux;
+                if (i <= j) 
+                {
+                    aux+=p;
+                    yield return i; 
+                }
+                else {
+                    yield break; //detiene la iteracion
+                }
+            }   
+        }  
+
+        static IEnumerable Potencias(int Base,int exponenteMax)
+        {
+            int exponenteAct=0;
+            while(true){
+                if(exponenteAct < exponenteMax)
+                {
+                    exponenteAct++;
+                    yield return (int)Math.Pow(Base,exponenteAct);
+                }
+                else
+                {
+                    yield break;
+                }
+            }
+        }
+
+        static IEnumerable DivisiblesPor(IEnumerable rango,int divisor)
+        {
+            foreach(int i in rango)
+            {
+                if(i % divisor == 0)
+                {
+                    yield return i;
+                }
+            }
+            yield break;
+        }
+
+        
+    }
 EJERCICIO 9 ================================================================================================================================================================
 
 A--------------------------------------------------------------------------------------------------------------------------------------------------------------------
