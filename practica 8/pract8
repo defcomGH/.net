@@ -34,7 +34,39 @@ class program{
             }
  }
 EJERCICIO 2 ========================================================================================================================================
+delegate void AccionInt(ref int i);
+class Program
+{
+        static void Main(string[] args)
+        {
+                AccionInt a1 = (ref int i) => i = i * 2;
+                a1 += a1; //se encola uno tengo 2 delegates
+                a1 += a1; //se encolan 2 y ya tengo 2 entonces ahora tengo 4
+                a1 += a1; //se enconlan 4 a los 4 asi que ahora tengo 8
+                int i = 1;
+                Console.WriteLine(a1(ref i));  //2^8 = 256
+                //tengo 8 delegates encolados
+                // Responder respecto de este punto en el programa
+                Console.ReadKey();
+        }
+}
 EJERCICIO 3 ========================================================================================================================================
+
+static void Main(string[] args)
+            {
+            int i = 10;
+            Action a = delegate ()
+            {
+              Console.WriteLine(i);
+            };
+
+            a.Invoke();
+            i = 20;
+            a.Invoke();
+            Console.ReadKey();
+        }
+        
+        //se pasa una referencia de la variable
 EJERCICIO 4 ========================================================================================================================================
 EJERCICIO 5 ========================================================================================================================================
 EJERCICIO 6 ========================================================================================================================================
