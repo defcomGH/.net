@@ -68,6 +68,24 @@ static void Main(string[] args)
         
         //se pasa una referencia de la variable
 EJERCICIO 4 ========================================================================================================================================
+
+        static void Main (String[] args)
+            {
+                
+                Action[] acciones = new Action[10];
+                for (int i = 0; i < 10; i++)
+                {
+                    acciones[i] = () => Console.WriteLine(i + " ");
+                }
+                foreach (var a in acciones)
+                {
+                    a.Invoke();
+                }
+                
+                Console.ReadKey();
+                   
+            }
+            //me va a imprimir diez veces 10 ya que el método se queda con la referencia de la variable i
 EJERCICIO 5 ========================================================================================================================================
 EJERCICIO 6 ========================================================================================================================================
 EJERCICIO 7 ========================================================================================================================================
