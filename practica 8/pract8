@@ -87,6 +87,121 @@ EJERCICIO 4 ====================================================================
             }
             //me va a imprimir diez veces 10 ya que el método se queda con la referencia de la variable i
 EJERCICIO 5 ========================================================================================================================================
+        class Program1
+        {
+            delegate bool AccionSeleccionar(int i);
+            delegate int AccionAplicar(int i);
+            delegate int AccionCombinar(int x, int y);
+            static ArrayList listaAutos = new ArrayList();
+            static void Main (String[] args)
+            {
+                
+                ListaDeEnteros lista1 = new ListaDeEnteros();
+                for (int i = 1; i <= 10; i++)
+                {
+                lista1.Agregar(i);
+                }
+                foreach (int i in lista1)
+                {
+                Console.Write(i + "-");
+                }
+                Console.WriteLine();
+                ListaDeEnteros lista2 = lista1.Seleccionar(n => n % 2 == 0);
+                ListaDeEnteros lista3 = lista2.Aplicar(n => n * 5);
+                ListaDeEnteros lista4 = lista1.Seleccionar(n => n > 7).Aplicar(n => n + 10);
+                ListaDeEnteros lista5 = ListaDeEnteros.Combinar(lista3, lista4, (x, y) => x + y);
+                lista1.Imprimir();
+                lista2.Imprimir();
+                lista3.Imprimir();
+                lista4.Imprimir();
+                lista5.Imprimir();
+                ListaDeEnteros.Combinar(lista5, lista3, (x, y) => x + 2 * y).Imprimir();
+                
+                Console.ReadKey();
+            }
+
+            class ListaDeEnteros : IEnumerable
+            {
+                ArrayList lista = new ArrayList();
+                public void Agregar(int i) => lista.Add(i);
+                public int Cantidad => lista.Count;
+                
+                public IEnumerator GetEnumerator()
+                {
+                    return lista.GetEnumerator(); //aprovechando que ArrayList ya implementa la interfaz
+                }
+
+                public void Imprimir()
+                {
+                    foreach(int i in lista)
+                    {
+                        Console.Write(i + " - ");
+                    }
+                    Console.WriteLine();
+                }
+                public ListaDeEnteros Seleccionar (AccionSeleccionar a)
+                {
+                    ListaDeEnteros listaNueva = new ListaDeEnteros();
+                    foreach(int i in lista)
+                    {
+                        if(a(i))
+                        {
+                            listaNueva.Agregar(i);
+                        }
+                    }
+                    return listaNueva;
+                }
+                public ListaDeEnteros Aplicar(AccionAplicar a)
+                {
+                    ListaDeEnteros listaNueva = new ListaDeEnteros();
+                    foreach(int i in lista)
+                    {
+                        listaNueva.Agregar(a(i));
+                    }
+                    return listaNueva;
+                }
+
+                public static ListaDeEnteros Combinar(ListaDeEnteros l1, ListaDeEnteros l2,AccionCombinar a)
+                {
+                        ListaDeEnteros listaMasCorta,listaMasLarga;
+                        ListaDeEnteros listaNueva=new ListaDeEnteros();
+                        if(l1.Cantidad < l2.Cantidad)
+                        {
+                            listaMasCorta= l1;
+                            listaMasLarga= l2;
+                        }
+                        else
+                        {
+                            listaMasCorta=l2;
+                            listaMasLarga= l1; 
+                        }
+
+                        IEnumerator elistaLarga=listaMasLarga.GetEnumerator();
+                        IEnumerator elistaCorta=listaMasCorta.GetEnumerator();
+                        int i;
+                        for(i=0;i<listaMasCorta.Cantidad;i++)
+                        {   
+                            elistaCorta.MoveNext();
+                            elistaLarga.MoveNext();
+                            listaNueva.Agregar(a((int)elistaCorta.Current,(int)elistaLarga.Current));
+                            
+                        }
+                        for(int k=i;k<listaMasLarga.Cantidad;k++)
+                        {
+                            elistaLarga.MoveNext();
+                            listaNueva.Agregar((int)elistaLarga.Current);
+                        }
+                        elistaCorta.Reset();
+                        elistaLarga.Reset();
+                        
+                        return listaNueva;
+                }
+
+            }
+
+            
+            
+        }
 EJERCICIO 6 ========================================================================================================================================
 EJERCICIO 7 ========================================================================================================================================
 EJERCICIO 8 ========================================================================================================================================
