@@ -203,9 +203,308 @@ EJERCICIO 5 ====================================================================
             
         }
 EJERCICIO 6 ========================================================================================================================================
+        b) Se inició el trabajo
+           Trabajo concluido
+           
+         c) da error ya que el delegado eventHandler no tiene ningún valor
+         
+                public void Trabajar()
+                {
+                    Trabajando= T1Trabajando;   //asignamos el delegado adentro del método
+                    Trabajando(this, EventArgs.Empty);
+                    //realiza algún trabajo
+                    Console.WriteLine("Trabajo concluido");
+                }
+          d) 
+                  static void Main(string[] args)
+                    {
+                        Trabajador t1 = new Trabajador();
+                   --   t1.Trabajando = (sender, e) => Console.WriteLine("Se inició el trabajo"); 
+                        t1.Trabajar();
+                        Console.ReadKey();
+                    }
+          e)
+          
+                static void Main(string[] args)
+            {
+                Trabajador t1 = new Trabajador();
+                t1.Trabajando += (sender, e) => Console.WriteLine("Se inició el trabajo");  // al usar event me obliga a usar =+
+                t1.Trabajar();
+                Console.ReadKey();
+            }
+            public static void T1Trabajando(object sender, EventArgs e)
+                => Console.WriteLine("Se inició el trabajo");
+            class Trabajador
+            {
+                public event EventHandler Trabajando; //No es necesario definir un tipo delegado propio //cambiamos por event
+                //porque la plataforma provee el tipo EventHandler
+                //que se adecua a lo que se necesita
+
+                public void Trabajar()
+                {
+                    
+                    Trabajando(this, EventArgs.Empty);
+                    //realiza algún trabajo
+                    Console.WriteLine("Trabajo concluido");
+                }
+            }
+            
+           f)
+                
+                static void Main(string[] args)
+            {
+                Trabajador t1 = new Trabajador();
+                t1.Trabajando += (sender, e) => Console.WriteLine("Se inició el trabajo"); 
+                Console.ReadKey();
+            }
+            public static void T1Trabajando(object sender, EventArgs e)
+                => Console.WriteLine("Se inició el trabajo");
+            class Trabajador
+            {
+                private EventHandler _Trabajando;
+                public event EventHandler Trabajando
+                {
+                    add
+                    {
+                        _Trabajando+=value;
+                        Trabajar();
+                    }
+                    remove
+                    {
+                        _Trabajando-=value;
+                    }
+                }
+                
+
+                public void Trabajar()
+                {
+                    
+                    _Trabajando(this, EventArgs.Empty);
+                    //realiza algún trabajo
+                    Console.WriteLine("Trabajo concluido");
+                }
+            }
+            
+            
+        }
 EJERCICIO 7 ========================================================================================================================================
+        
+         class Program
+            {
+                static void Main()
+                {
+                ContadorDeLineas contador = new ContadorDeLineas();
+                contador.Contar();
+                }
+            }
+            class ContadorDeLineas
+            {
+                private int _cantLineas = 0;
+                public void Contar()
+                {
+                Ingresador _ingresador = new Ingresador();
+                _ingresador.OtraLinea +=UnaLineaMas; //me suscribo al evento de la clase Ingresador
+                _ingresador.Ingresar();
+                Console.WriteLine($"Cantidad de líneas ingresadas: {_cantLineas}");
+
+                }
+                public void UnaLineaMas(object sender,EventArgs e) => _cantLineas++;
+
+            }
+            class Ingresador
+            {
+                private EventHandler _otraLinea;
+                public event EventHandler OtraLinea
+                {
+                    add
+                    {
+                        _otraLinea += value;
+                    }
+                    remove
+                    {
+                        _otraLinea -= value;
+                    }
+                }
+                public void Ingresar()
+                {
+                    string st = Console.ReadLine();
+                    while (st != "")
+                    {
+                        _otraLinea(this,new EventArgs()); //cada vez que escribo algo por consola se genera un evento al cual la clase ContadorDeLineas está suscripto
+                        st = Console.ReadLine();
+                    }
+                }
+            }
 EJERCICIO 8 ========================================================================================================================================
+
+        class Program
+            {
+                static void Main()
+                {
+                    Ingresador ingresador = new Ingresador();
+                    ingresador.EspacioLeido += (sender, e) =>
+                    { Console.WriteLine("Se ingresó una línea en blanco"); };
+                    ingresador.NumeroLeido += (sender, e) =>
+                    { Console.WriteLine($"Se ingresó el número {e.Valor}"); };
+                    ingresador.Ingresar();
+                }
+
+                
+            }
+            public class NumeroLeidoEventArgs : EventArgs
+            {
+                    public int Valor { get; set; }
+            }
+
+            delegate void NumeroLeidoEventHandler(object sender, NumeroLeidoEventArgs e);
+            class Ingresador
+            {
+
+                    private NumeroLeidoEventHandler _numeroLeido;
+                    public event NumeroLeidoEventHandler NumeroLeido
+                    {
+                        add
+                        {
+                            _numeroLeido+=value;
+                        }
+                        remove
+                        {
+                            _numeroLeido-=value;
+                        }
+                    }
+
+                    private EventHandler _espacioLeido;
+                    public event EventHandler EspacioLeido
+                    {
+                        add
+                        {
+                            _espacioLeido+=value;
+                        }
+                        remove
+                        {
+                            _espacioLeido-=value;
+                        }
+                    }
+                    public void Ingresar()
+                    {
+                      
+                        String str = Console.ReadLine();
+                        while(str != "fin")
+                        {
+                            str = Console.ReadLine();
+                            if(str == "")
+                            {
+                                _espacioLeido(this,new EventArgs());
+                            }
+                            if(int.TryParse(str,out int i)){
+
+                                _numeroLeido(this,new NumeroLeidoEventArgs(){Valor=i});
+                            }
+                            
+                        }    
+                    }
+        }
 EJERCICIO 9 ========================================================================================================================================
+
+        class Program
+            {
+                static void Main()
+                {
+                    Temporizador t = new Temporizador();
+                    t.Tic += (sender, e) =>
+                    {
+                    Console.Write(DateTime.Now.ToString("HH:mm:ss") + " ");
+                    if (e.Tics == 5)
+                    {
+                    t.Habilitado = false;
+                    }
+                    };
+                    t.Intervalo = 2000;
+                    t.Habilitado = true;
+                    Console.WriteLine();
+                    t.Intervalo = 1000;
+                    t.Habilitado = true;
+
+                    Console.ReadKey();
+                }
+
+                
+            }
+
+            public class TicEventArgs : EventArgs
+            {
+                    public int Tics { get; set; }
+            }
+
+            delegate void TicEventHandler(object sender, TicEventArgs e);
+
+            class Temporizador
+            {
+                private TicEventHandler _tic;
+                public event TicEventHandler Tic
+                {
+                    add
+                    {
+                        _tic+=value;
+                    }
+                    remove
+                    {
+                        _tic-=value;
+                    }
+                }
+                private int _intervalo;
+
+                private bool _habilitado=false;
+
+            
+                public int Intervalo{
+                    get
+                    {
+                        return this._intervalo;
+                    }
+                    set
+                    { 
+                        if(value>=100)
+                        {
+                            this._intervalo=value;
+                        }
+                    }
+                }
+               
+                public bool Habilitado 
+                {
+                    get
+                    {
+                        return this._habilitado;
+                    }
+                    set 
+                    {
+                         this._habilitado=value;
+                         if(value)
+                        {
+                            TicTock();
+                        }
+                    }
+                }
+
+               
+                public void TicTock()
+                {
+                    int tics = 0;
+                    while(_habilitado){
+
+                        Thread.Sleep(_intervalo); 
+
+                        if(_tic!= null)
+                        {
+                            _tic(this,new TicEventArgs(){Tics=tics});
+                        }
+                        tics++;
+                    }
+                   
+
+                }
+            }
 EJERCICIO 10 =======================================================================================================================================
 EJERCICIO 11 =======================================================================================================================================
 EJERCICIO  ========================================================================================================================================
