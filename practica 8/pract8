@@ -511,10 +511,71 @@ EJERCICIO 9 ====================================================================
                 }
             }
 EJERCICIO 10 =======================================================================================================================================
-EJERCICIO 11 =======================================================================================================================================
-EJERCICIO  ========================================================================================================================================
-EJERCICIO  ========================================================================================================================================
-EJERCICIO  ========================================================================================================================================
-EJERCICIO  ========================================================================================================================================
-EJERCICIO  ========================================================================================================================================
-EJERCICIO  ========================================================================================================================================
+
+
+        class Program
+            {
+                static void Main()
+                {
+                    Articulo a = new Articulo();
+                    a.PrecioCambiado += precioCambiado;
+                    a.Codigo = 1;
+                    a.Precio = 10;
+                    a.Precio = 12;
+                    a.Precio = 12;
+                    a.Precio = 14;
+
+                    Console.ReadKey();
+                }
+
+                public static void precioCambiado(object sender, PrecioCambiadoEventArgs e)
+                {
+                string texto = $"Artículo {e.Codigo} valía {e.PrecioAnterior}";
+                texto += $" y ahora vale {e.PrecioNuevo}";
+                Console.WriteLine(texto);
+                }
+
+                
+            }
+            class PrecioCambiadoEventArgs : EventArgs //agregamos esta clase ya que queremos pasar informacion mediante el evento
+            {
+
+                public int Codigo {get;set;}
+                public double PrecioNuevo{get;set;}
+                public double PrecioAnterior{get;set;}
+
+            }
+            delegate void PrecioCambiadoEventHandler (object sender, PrecioCambiadoEventArgs e); //declaramos nuestro delegado por el cual podemos enviar informacion
+
+    	    class Articulo
+            {
+                private double _Precio=0;
+                public double Precio
+                {
+                    set
+                    {
+                         _precioCambiado(this,new PrecioCambiadoEventArgs(){Codigo=this.Codigo,PrecioAnterior=this._Precio,PrecioNuevo=value});
+                        _Precio = value;
+                    }
+                    get
+                    {
+                        return _Precio;
+                    }
+                }
+                public int Codigo{set;get;}
+
+                private PrecioCambiadoEventHandler _precioCambiado;
+
+                public event PrecioCambiadoEventHandler PrecioCambiado
+                {
+                    add
+                    {
+                        this._precioCambiado += value;
+                    }
+                    remove
+                    {
+                        this._precioCambiado-=value;
+                    }
+                }
+            }
+====================================================================================================================================================================
