@@ -479,9 +479,14 @@ EJERCICIO 9 ====================================================================
                     }
                     set 
                     {
-                         this._habilitado=value;
-                         if(value)
+                        if(value == false)
                         {
+                             this._habilitado=value;
+                        }
+                         else
+                        if(this._tic != null)
+                        {
+                            this._habilitado=value;
                             TicTock();
                         }
                     }
