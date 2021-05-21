@@ -55,6 +55,70 @@ EJERCICIO 2 ====================================================================
     
             }
 EJERCICIO 3 ==================================================================================================================================================================
+
+class Program
+            {
+                static void Main()
+                {
+                    string[] vector1 = CrearArreglo<string>("uno", "dos");
+
+                    foreach (string st in vector1) Console.Write(st + " - ");
+
+                    Console.WriteLine();
+                    double[] vector2 = CrearArreglo<double>(1, 2.3, 4.1, 6.7);
+
+                    foreach (double valor in vector2) Console.Write(valor + " - ");
+
+                    Console.WriteLine();
+
+                    ArrayList lista = new ArrayList();
+                    Stack pila = new Stack();
+
+                    var a = CrearObjetoDelMismoTipo(lista);
+                    var b = CrearObjetoDelMismoTipo(12);
+                    var c = CrearObjetoDelMismoTipo('A');
+                    var d = CrearObjetoDelMismoTipo(pila);
+
+                    Console.WriteLine(a.GetType());
+                    Console.WriteLine(b.GetType());
+                    Console.WriteLine(c.GetType());
+                    Console.WriteLine(d.GetType());
+
+                    Console.ReadKey();
+                }
+
+                static T[] CrearArreglo<T> (params T[] v)
+                {
+                    T[] newVector= new T[v.Length];
+                    int pos=0;
+                    foreach(T aux in v)
+                    {
+                        newVector[pos++]=aux;
+                    }
+                    return newVector;
+                }
+
+                static T CrearObjetoDelMismoTipo<T>(T a) where T: new()
+                {
+                    T nuevo = new T();
+                    return nuevo;
+                }
+
+                static void Set<T>(T[] v,T dato , int pos)
+                {
+                    v[pos] = dato;
+                }
+                static void Imprimir<T>(T[] v)
+                {
+                    foreach(T aux in v)
+                    {
+                        Console.Write($"{aux} - ");
+                    }
+                    Console.WriteLine();
+                } 
+               
+            }      
+
 EJERCICIO 4 ==================================================================================================================================================================
 EJERCICIO 5 ==================================================================================================================================================================
 EJERCICIO 6 ==================================================================================================================================================================
