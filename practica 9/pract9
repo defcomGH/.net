@@ -251,27 +251,38 @@ EJERCICIO 4 ====================================================================
             }
           
 EJERCICIO 5 ==================================================================================================================================================================
-            class Program
+class Program
     {
         static void Main(string[] args)
         {
     
-            Nodo<String> n = new Nodo<String>("aa");
-            n.Insertar("bb");
-            n.Insertar("cc");
-            n.Insertar("dd");
-            n.Insertar("ff");
-            n.Insertar("gg");
-            n.Insertar("hh");
-            foreach (String i in n.GetInOrder())
+            Nodo<int> n = new Nodo<int>(7);
+            n.Insertar(3);
+            n.Insertar(1);
+            n.Insertar(5);
+            n.Insertar(12);
+            foreach (int elem in n.InOrder)
             {
-            Console.Write(i + " ");
+            Console.Write(elem + " ");
             }
             Console.WriteLine();
-            Console.WriteLine("Altura: " + n.GetAltura());
-            Console.WriteLine("Cantidad de nodos: " + n.GetCantNodos());
-            Console.WriteLine("Valor máximo: " + n.GetValorMaximo());
-            Console.WriteLine("Valor mínimo: " + n.GetValorMinimo());
+            Console.WriteLine($"Altura: {n.Altura}");
+            Console.WriteLine($"Cantidad: {n.CantNodos}");
+            Console.WriteLine($"Mínimo: {n.ValorMinimo}");
+            Console.WriteLine($"Máximo: {n.ValorMaximo}");
+            Nodo<string> n2 = new Nodo<string>("hola");
+            n2.Insertar("Mundo");
+            n2.Insertar("XYZ");
+            n2.Insertar("ABC");
+            foreach (string elem in n2.InOrder)
+            {
+            Console.Write(elem + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine($"Altura: {n2.Altura}");
+            Console.WriteLine($"Cantidad: {n2.CantNodos}");
+            Console.WriteLine($"Mínimo: {n2.ValorMinimo}");
+            Console.WriteLine($"Máximo: {n2.ValorMaximo}");
 
             Console.ReadKey();
 
@@ -321,11 +332,12 @@ EJERCICIO 5 ====================================================================
         }
 
 
-        public List<T> GetInOrder(){
-                List<T> l = new List<T>();
-                GetInOrder(ref l);
-                return l;
-
+        public List<T> InOrder{
+                get{
+                    List<T> l = new List<T>();
+                    GetInOrder(ref l);
+                    return l;
+                }
         }
 
         private void GetInOrder (ref List<T> l)
@@ -342,10 +354,12 @@ EJERCICIO 5 ====================================================================
             }
         }
 
-        public int GetAltura(){
-            int x=0;
-            GetAltura(ref x,0);
-            return x;
+        public int Altura{
+            get{
+                int x=0;
+                GetAltura(ref x,0);
+                return x;
+            }
         }
         private void GetAltura(ref int n,int k){
             if(n < k) {
@@ -362,11 +376,13 @@ EJERCICIO 5 ====================================================================
         }
 
 
-        public int GetCantNodos()
+        public int CantNodos
         {
-            int x = 0;
-            GetCantNodos(ref x);
-            return x;
+           get{
+                int x = 0;
+                GetCantNodos(ref x);
+                return x;
+           } 
         }
         private void GetCantNodos(ref int n)
         {
@@ -376,35 +392,40 @@ EJERCICIO 5 ====================================================================
             }  
             if(hijoDerecho != null)
             {
-                hijoDerecho.GetCantNodos (ref n);
+                hijoDerecho.GetCantNodos(ref n);
             }
         }
 
-        public T GetValorMaximo ()
+        public T ValorMaximo
         {
-            if(hijoDerecho!= null)
-            {
-                return hijoDerecho.GetValorMaximo();
-            }
-            else
-            {
-                return valor;
-            }
+           get{
+                if(hijoDerecho!= null)
+                {
+                    return hijoDerecho.ValorMaximo;
+                }
+                else
+                {
+                    return valor;
+                }
+           } 
         }
 
-        public T GetValorMinimo ()
+        public T ValorMinimo 
         {
-            if(hijoIzquierdo!= null)
-            {
-                return hijoIzquierdo.GetValorMinimo();
+            get{
+                if(hijoIzquierdo!= null)
+                {
+                    return hijoIzquierdo.ValorMinimo;
+                }
+                else
+                {
+                    return valor;
+                }
             }
-            else
-            {
-                return valor;
-            }
+            
         }
            
-    }                                
+    }                                                            
 EJERCICIO 6 ==================================================================================================================================================================
 EJERCICIO 7 ==================================================================================================================================================================
 EJERCICIO 8 ==================================================================================================================================================================
