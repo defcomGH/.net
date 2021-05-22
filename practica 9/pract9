@@ -428,6 +428,63 @@ class Program
     }                                                            
 EJERCICIO 6 ==================================================================================================================================================================
 EJERCICIO 7 ==================================================================================================================================================================
+class Program
+    {
+        static void Main(string[] args)
+        {
+    
+            List<Persona>   listaPersonas = new List<Persona>();
+
+            listaPersonas.Add(new Persona(){Nombre="pepe1",Edad = 211});
+
+            listaPersonas.Add(new Persona(){Nombre="pepe2",Edad = 212});
+
+            listaPersonas.Add(new Persona(){Nombre="pepe3",Edad = 213});
+
+            listaPersonas.Add(new Persona(){Nombre="pepe4",Edad = 214});
+
+            List<Par<string,int>> listaPar = listaPersonas.ConvertAll(new Converter<Persona, Par<string,int>>(PersonaToPar));
+
+            foreach(Par<string,int> aux in listaPar )
+            {
+                Console.WriteLine($"{aux.A}  {aux.B}     ");
+            }
+            Console.ReadKey();
+
+        }
+
+        
+        static Par<string,int> PersonaToPar(Persona p)
+    {
+        return new Par<string,int> (p.Nombre,p.Edad);
+    }
+
+        /*static void Agregar<T>(Nodo<T> nodo,params T[] v) where T: Nodo<T> , IComparable,new()
+        {
+            
+            foreach(T aux in v)
+            {
+                
+            }
+        }*/
+        class Persona
+        {
+            public String Nombre {get;set;}
+            public int Edad{set;get;}
+
+        }
+        class Par<T1, T2>
+        {
+            public T1 A { get; private set; }
+            public T2 B { get; private set; }
+            public Par(T1 a, T2 b)
+            {
+                this.A = a;
+                this.B = b;
+            }
+        }
+        
+    }
 EJERCICIO 8 ==================================================================================================================================================================
 EJERCICIO 9 ==================================================================================================================================================================
 EJERCICIO  ==================================================================================================================================================================
