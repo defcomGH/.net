@@ -6,6 +6,7 @@ EJERCICIO 1 ====================================================================
             static void Main(string[] args)
             {
                 Task t = new Task(Saludar);
+                t.start();
                 Console.ReadKey();
                 t.Wait();
             }   
@@ -75,9 +76,121 @@ EJERCICIO 2 ====================================================================
         }
     }
 EJERCICIO 3 ===============================================================================================================================================================
+static void Main(string[] args)
+        {
+             Task[] v=new Task[4];
+             for(int i = 0;i<4;i++)
+             {
+                 v[i]=new Task(Procesar);
+             }
+             DateTime t1 = DateTime.Now;
+             v[0].Start();
+             v[1].Start();
+             v[2].Start();
+             v[3].Start();
+             DateTime t2 = DateTime.Now;
+
+            Task.WaitAll(v);
+            Console.WriteLine(t2.Ticks - t1.Ticks);
+
+         
+            Console.ReadKey();
+
+        } //tardo arpoximadamente 18 mil ticks
+   ---------------------------------------------
+   static void Main(string[] args)
+        {
+             Task[] v=new Task[4];
+             for(int i = 0;i<4;i++)
+             {
+                 v[i]=new Task(Procesar);
+             }
+             DateTime t1 = DateTime.Now;
+             Procesar();
+             Procesar();
+             Procesar();
+             Procesar();
+             DateTime t2 = DateTime.Now;
+
+            Console.WriteLine(t2.Ticks - t1.Ticks);
+
+         
+            Console.ReadKey();
+
+        } // con esta tardo aproximadamente 60 mil ticks;
+        
+        
+        
+        for(int i = 0 ; i<100000 ; i++) // 73859868  ticks
+             {
+                Procesar();
+             }
+             
+         for(int i = 0 ; i<100000 ; i++) // 200000  ticks
+             {
+                v[i].star();
+             }
+       
+
 EJERCICIO 4 ===============================================================================================================================================================
+
+static void Main(string[] args)
+        {
+            Task[] t= new Task[1000];
+            for(int i = 0;i<1000;i++)
+            {
+                t[i]=new Task(Imprimir,i);
+                t[i].Start();
+            }
+
+            Console.ReadKey();
+
+        }
+
+        static void Imprimir(object o)
+        {
+            Console.WriteLine($"{o} - ");
+        }
 EJERCICIO 5 ===============================================================================================================================================================
+
+static void Main(string[] args)
+        {
+            Task[] t = new Task[1000];
+            for(int i=0;i<1000;i++)
+            {
+                t[i] = Task.Factory.StartNew(Imprimir,i);
+            }
+            
+                       Console.ReadKey();
+
+        }
+
+        static void Imprimir(object o)
+        {
+            Console.WriteLine($"{o} - ");
+        }
 EJERCICIO 6 ===============================================================================================================================================================
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Task[] t = new Task[1000];
+            for(int i=0;i<1000;i++)
+            {
+                t[i] = Task.Factory.StartNew(      (o) => Console.WriteLine($"{(int)o} - "),       i);
+            }
+            
+                       Console.ReadKey();
+
+        }
+
+        static void Imprimir(object o)
+        {
+            Console.WriteLine($"{o} - ");
+        }
+   
+    }
 EJERCICIO 7 ===============================================================================================================================================================
 EJERCICIO 8 ===============================================================================================================================================================
 EJERCICIO 9 ===============================================================================================================================================================
