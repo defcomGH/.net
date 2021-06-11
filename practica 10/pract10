@@ -46,7 +46,7 @@ EJERCICIO 1 ====================================================================
         {
             Saludador s1 = new Saludador(Saludar);
 
-            Task t = Task.Run(() => (s1));
+            Task t = Run(() => (s1));
             t.Wait();
             Console.ReadKey();
         }   
@@ -192,6 +192,14 @@ class Program
    
     }
 EJERCICIO 7 ===============================================================================================================================================================
+          7) Codificar el método static void Sumatoria(int n) que calcula la sumatoria de 1 hasta n y
+          que imprime el resultado en la consola, completar el siguiente código para invocar asincrónicamente
+          el método Sumatoria con argumentos que van desde 1 hasta 10. Se debe utilizar una expresión
+          lambda para la definición de las tareas.
+          
+          
+
+
 EJERCICIO 8 ===============================================================================================================================================================
 EJERCICIO 9 ===============================================================================================================================================================
 EJERCICIO 10 ==============================================================================================================================================================
