@@ -227,6 +227,43 @@ EJERCICIO 7 ====================================================================
 
 
 EJERCICIO 8 ===============================================================================================================================================================
+    8) Codificar el método static void Sumatoria(int a, int b) que calcula la sumatoria desde a
+hasta b y que imprime el resultado en la consola. Completar el siguiente código para invocar
+asincrónicamente el método Sumatoria para los distintos valores de a y de b que se especifican en
+las instrucciones for. Se debe utilizar una expresión lambda para la definición de las tareas.
+private delegate void Sumar(int n);
+
+        static void Main(string[] args)
+        {
+            List<Task> tareas = new List<Task>();
+            int aux=0;
+            for (int a = 1; a <= 3; a++)
+            {
+                for (int b = a + 2; b <= a + 4; b++)
+                {
+                    
+                    int[] v = {a,b};
+                    tareas.Add(    new Task(   (o) => Sumatoria((int[])o) ,v)  ); // uso un vector ya que solo puedo sobrecargar el constructor de la clase Task con un solo object
+                    tareas[aux++].Start();
+              }
+            }
+
+            Task.WaitAll(tareas.ToArray());
+
+            Console.ReadKey();
+        }   
+        
+        static void Sumatoria(int[] v)
+        {
+            int aux = 0;
+            for(int i=v[0] ; i<=v[1]; i++)
+            {
+                aux+= i;
+            }
+
+            Console.WriteLine($"La sumatoria de {v[0]} a {v[1]} es {aux}");
+
+        }
 EJERCICIO 9 ===============================================================================================================================================================
 EJERCICIO 10 ==============================================================================================================================================================
 EJERCICIO 11 ==============================================================================================================================================================
