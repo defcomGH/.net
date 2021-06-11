@@ -197,7 +197,33 @@ EJERCICIO 7 ====================================================================
           el método Sumatoria con argumentos que van desde 1 hasta 10. Se debe utilizar una expresión
           lambda para la definición de las tareas.
           
-          
+    class Program
+    {
+        private delegate void Sumar(int n);
+        static void Main(string[] args)
+        {
+            List<Task> tareas = new List<Task>();
+            for (int n = 1; n <= 10; n++)
+            {
+                //tareas.Add(    Task.Run(      (k) => Sumatoria((int)k)  , 3     )       );  el método task.Run no me permite la sobrecarga con un método oject
+                tareas.Add(    new Task(      (o) => Sumatoria((int)o)  , n    )       );
+                tareas[n-1].Start();
+            }
+            Task.WaitAll(tareas.ToArray());
+
+            Console.ReadKey();
+        }   
+        
+        static void Sumatoria(int n)
+        {
+            int aux = 0;
+            for(int i =0;i<n;i++)
+            {
+                aux+=i;
+            }
+            Console.WriteLine($"La sumatoria de 0 hasta {n} es : {aux}");
+        }
+    }      
 
 
 EJERCICIO 8 ===============================================================================================================================================================
