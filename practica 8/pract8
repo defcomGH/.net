@@ -554,7 +554,8 @@ EJERCICIO 10 ===================================================================
                 {
                     set
                     {
-                         _precioCambiado(this,new PrecioCambiadoEventArgs(){Codigo=this.Codigo,PrecioAnterior=this._Precio,PrecioNuevo=value});
+                         if(value != _Precio)
+                                _precioCambiado(this,new PrecioCambiadoEventArgs(){Codigo=this.Codigo,PrecioAnterior=this._Precio,PrecioNuevo=value});
                         _Precio = value;
                     }
                     get
