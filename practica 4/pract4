@@ -201,22 +201,22 @@ static void Main(string[] args)
 
             public ArrayList GetInOrder(){
                     ArrayList l = new ArrayList();
-                    GetInOrder(ref l);
+                    GetInOrder(l);
                     return l;
 
             }
 
-            private void GetInOrder (ref ArrayList l)
+            private void GetInOrder (ArrayList l)
             {
                 if(hijoIzquierdo!= null)
                 {
-                    hijoIzquierdo.GetInOrder(ref l);
+                    hijoIzquierdo.GetInOrder(l);
                 }
 
                 l.Add(this.valor);
                 if(hijoDerecho != null)
                 {
-                    hijoDerecho.GetInOrder(ref l);
+                    hijoDerecho.GetInOrder(l);
                 }
             }
 
