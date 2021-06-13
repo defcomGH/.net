@@ -509,6 +509,24 @@ objeto Persona, con p[0] se accede al nombre, p[1] al sexo p[2] al DNI, p[3] a l
 nacimiento y p[4] a la edad. En caso de asignar p[4] simplemente el valor es descartado. Observar
 que el tipo del indizador debe ser capaz almacenar valores de tipo int, char, DateTime y string.
 
+8)Dada la siguiente definición de clase:
+
+class ListaDePersonas
+{
+        private Hashtable ht = new Hashtable();
+        public void Agregar(Persona p)
+        {
+                ht[p.DNI] = p;
+        }
+}
+
+Completarla agregando dos indizadores de sólo lectura
+Un índice entero que permite acceder a las personas de la lista por número de documento. Por
+ejemplo p=lista[30456345] devuelve el objeto Persona que tiene DNI=30456345 o null en caso
+que no exista en la lista.
+Un índice de tipo char que devuelve un arreglo de strings con todos los nombres de las personas de
+la lista que comienzan con el carácter índice. Por ejemplo arreglo=lista['L'] devuelve todos los
+nombres de las personas que comienzan con L.
 
 
 static void Main(string[] args)
@@ -605,26 +623,26 @@ static void Main(string[] args)
 
         class ListaDePersonas
         {
-        private Hashtable ht = new Hashtable();
-        public ListaDePersonas Agregar(Persona p)
-        {
-            ht[p.DNI] = p;
-            return this;
-        }
+                private Hashtable ht = new Hashtable();
+                public ListaDePersonas Agregar(Persona p)
+                {
+                    ht[p.DNI] = p;
+                    return this;
+                }
 
-         public Persona this[int n]{
-            get{
-                        try 
-                    {  
-                        return (Persona)ht[n];
+                public Persona this[int n]{
+                    get{
+                                try 
+                            {  
+                                return (Persona)ht[n];
+                            }
+                            catch (Exception) 
+                            {
+                                Console.WriteLine( "No existe esa persona!");
+                                return null;
+                            }
+
                     }
-                    catch (Exception) 
-                    {
-                        Console.WriteLine( "No existe esa persona!");
-                        return null;
-                    }
-                
-            }
         }
 
         public String[] this[char c]{
@@ -632,7 +650,7 @@ static void Main(string[] args)
                 StringBuilder str=new StringBuilder(); //declaro un StringBuilder pues voy a realizar sucesivas concatenaciones
                 foreach (int aux in ht.Keys){      //recorro con un foreach todas las llaves de mi tabla hash
     
-                    if(  ( (Persona) ht[aux]  ).Nombre[0] == c){     //si el nombre de la persona de la tabla hash es igual a mi parametro c
+                    if(  ( (Persona) ht[aux]  ).Nombre[0] == c){     //si la primer letra del nombre de la persona de la tabla hash es igual a mi parametro c
                         str.Append(( (Persona) ht[aux]  ).Nombre+ '€');   //lo concateno en mi stringBuilder, agrego un caracter para posteriormente usar el método split
                     }
                     
