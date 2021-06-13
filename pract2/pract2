@@ -1,0 +1,23 @@
+EJERCICIO 14
+
+
+static void Main(string[] args)
+        {
+            // para pasar parámetros podemos o modificar el archivo launch.json   ->>>>>     "args": ["23"],
+            //o tambien podemos pasar los parametros desde la linea de comandos ->>>  nos paramos en la carpeta donde esté nuestra aplicacion y  -> dotnet run 23 
+            Console.WriteLine(esPrimo(Int32.Parse(args[0])));
+            Console.ReadKey();
+
+        }
+
+        static bool esPrimo(int n)
+        {
+            for(int i=2; i<(int)Math.Sqrt(n);i++)
+            {
+                if(n % i == 0) // si el resto me da cero significa que el numero es divisible por ese numero por lo que no es primo
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
