@@ -304,8 +304,10 @@ static  class Procesador
     
 EJERCICIO 3 ================================================================================================================================================================
 
-  static  class Procesador
+  class Program
     {
+         static  class Procesador
+        {
         
         public static void Main()
         {
@@ -314,7 +316,7 @@ EJERCICIO 3 ====================================================================
         }
         public static void Ejecutar() {
 
-            /* 
+            
             Auto auto = new Auto();
             Libro libro = new Libro();
             Persona persona = new Persona();
@@ -334,20 +336,20 @@ EJERCICIO 3 ====================================================================
             Procesador.Vender(perro, persona);
             Procesador.Lavar(perro);
             Procesador.Secar(perro);
-            Pelicula peliculaClasica = new PeliculaClasica();
+            PeliculaClasica peliculaClasica = new PeliculaClasica();
             Procesador.Alquilar(peliculaClasica, persona);
             Procesador.Devolver(peliculaClasica, persona);
             Procesador.Vender(peliculaClasica, persona);
-            */
+            
 
             System.Collections.ArrayList lista = new System.Collections.ArrayList() {new Persona(),new Auto()};
             foreach(IComercial c in lista)
             {
-            c.Importar();
+                c.Importar();
             }
             foreach(IImportante i in lista)
             {
-            i.Importar();
+                i.Importar();
             }
             (lista[0] as Persona).Importar();
             (lista[1] as Auto).Importar();
@@ -407,7 +409,7 @@ EJERCICIO 3 ====================================================================
             Console.WriteLine("se recicla libro");
         }
     }
-    public class Pelicula: IAlquilable ,IVendible
+    public class Pelicula: IAlquilable 
     {
         public virtual void Alquilar(Persona p)
         {
@@ -417,12 +419,9 @@ EJERCICIO 3 ====================================================================
         {
             Console.WriteLine($"{p.Nombre} devuelve pelicula");
         }
-        public virtual void Vender(Persona p)
-        {
-            Console.WriteLine($"vendiendo pelicula a {p.Nombre}");
-        }
+
     }
-    public class PeliculaClasica : Pelicula
+    public class PeliculaClasica : Pelicula ,IVendible
     {
         public override void Alquilar(Persona p)
         {
@@ -432,7 +431,7 @@ EJERCICIO 3 ====================================================================
         {
             Console.WriteLine($"{p.Nombre} devuelve pelicula clasica");
         }
-        public override void Vender(Persona p)
+        public void Vender(Persona p)
         {
             Console.WriteLine($"vendiendo pelicula clasica a {p.Nombre}");
         }
@@ -515,6 +514,9 @@ EJERCICIO 3 ====================================================================
     public interface IImportante
     {
         public void Importar();
+    }
+
+           
     }
 EJERCICIO 4 ================================================================================================================================================================
 
