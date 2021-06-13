@@ -183,7 +183,7 @@ EJERCICIO 5 ====================================================================
                         {   
                             elistaCorta.MoveNext();
                             elistaLarga.MoveNext();
-                            listaNueva.Agregar(a((int)elistaCorta.Current,(int)elistaLarga.Current));
+                            listaNueva.Agregar(a((int)elistaLarga.Current,(int)elistaCorta.Current));
                             
                         }
                         for(int k=i;k<listaMasLarga.Cantidad;k++)
