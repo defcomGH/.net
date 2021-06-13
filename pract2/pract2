@@ -61,3 +61,44 @@ static void Main(string[] args)
         }
         
         static int Fac3(int n) => (n>1) ? n*(Fac3(n-1)) : 1;
+        
+        
+        
+        EJERCICIO 17
+        
+        static void Main(string[] args)
+        {
+            // para pasar parámetros podemos o modificar el archivo launch.json   ->>>>>     "args": ["23"],
+            //o tambien podemos pasar los parametros desde la linea de comandos ->>>  nos paramos en la carpeta donde esté nuestra aplicacion y  -> dotnet run 23 
+            int x;
+            Fac1(Int32.Parse(args[0]),out x);
+            Console.WriteLine(x);
+            Fac2(Int32.Parse(args[0]),out x);
+            Console.WriteLine(x);
+
+           
+            Console.ReadKey();
+
+        }
+
+        static void Fac1 (int n, out int salida)
+        {
+            int aux=1;
+            for(int i=n; i>1; i--)
+            {
+                aux=aux*i;
+            }
+            salida = aux;
+        }
+        static void Fac2 (int n, out int salida)
+        {
+            if(n==1)
+            {
+                salida = 1;
+            }
+            else
+            {
+                Fac2(n-1,out salida);
+                salida = n*salida;
+            }
+        }
