@@ -21,3 +21,40 @@ static void Main(string[] args)
             }
             return true;
         }
+
+
+
+EJERCICIO 16
+
+
+static void Main(string[] args)
+        {
+            // para pasar parámetros podemos o modificar el archivo launch.json   ->>>>>     "args": ["23"],
+            //o tambien podemos pasar los parametros desde la linea de comandos ->>>  nos paramos en la carpeta donde esté nuestra aplicacion y  -> dotnet run 23 
+            Console.WriteLine(Fac1(Int32.Parse(args[0])));
+            Console.WriteLine(Fac2(Int32.Parse(args[0])));
+            Console.ReadKey();
+
+        }
+
+        static int Fac1(int n)
+        {
+            int aux=1;
+            for(int i=n; i>1; i--)
+            {
+                aux=aux*i;
+            }
+            return aux;
+        }
+
+        static int Fac2(int n)
+        {
+            if(n==1)
+            {
+                return 1;
+            }
+            else
+            {
+                return n*(Fac2(n-1));
+            }
+        }
