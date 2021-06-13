@@ -33,6 +33,7 @@ static void Main(string[] args)
             //o tambien podemos pasar los parametros desde la linea de comandos ->>>  nos paramos en la carpeta donde esté nuestra aplicacion y  -> dotnet run 23 
             Console.WriteLine(Fac1(Int32.Parse(args[0])));
             Console.WriteLine(Fac2(Int32.Parse(args[0])));
+            Console.WriteLine(Fac3(Int32.Parse(args[0])));
             Console.ReadKey();
 
         }
@@ -58,3 +59,5 @@ static void Main(string[] args)
                 return n*(Fac2(n-1));
             }
         }
+        
+        static int Fac3(int n) => (n>1) ? n*(Fac3(n-1)) : 1;
