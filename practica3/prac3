@@ -430,7 +430,10 @@ k = Console.ReadKey(true);
         
         
         
-        Stack c = new Stack ();
+         static void Main(string[] args)
+        
+        {
+            Stack c = new Stack ();
 
             int num = 35;
 
@@ -439,10 +442,14 @@ k = Console.ReadKey(true);
                 num = num / 2;
             }
 
-            while (c.Count !=0)  {
+            while (c.Count !=0) 
+            {
                 Console.WriteLine(c.Pop());
             }
-            Console.Read();
+
+
+            Console.ReadKey();
+        }
             
          EJERCICIO 15
          ============
