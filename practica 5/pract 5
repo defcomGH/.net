@@ -176,7 +176,15 @@ namespace teoria1
 
        EJERCICIO 3 ===========================================================================================================================
        
-       
+        Codificar la clase Cuenta de tal forma que el siguiente código produzca la salida por consola que
+        se indica.  
+        Agregar a la clase Cuenta del ejercicio anterior un método estático GetCuentas() que devuelva
+        un ArrayList con todas las cuentas creadas. Controlar que la modificación de la lista devuelta, por
+        ejemplo borrando algún elemento, no afecte el listado que internamente mantiene la clase Cuenta.
+        Sin embargo debe ser posible interactuar efectivamente con los objetos Cuenta de la lista devuelta.
+        Verificar que el siguiente código produzca la salida por consola que se indica:
+        Reemplazar el método estático GetCuentas() del ejercicio anterior por una propiedad estática de
+        sólo lectura.
        
        using System;
 using System.Text;
@@ -492,6 +500,15 @@ EJERCICIO  6   =================================================================
             }
 
 EJERCICIOS 7 y 8 =========================================================================================================================================================
+
+7) Definir la clase Persona con las siguientes propiedades de lectura y escritura: Nombre de tipo
+string, Sexo de tipo char, DNI de tipo int, y FechaNacimiento de tipo DateTime. Además
+definir una propiedad de sólo lectura (calculada) Edad de tipo int. Definir un indizador de
+lectura/escritura que permita acceder a las propiedades a través de un índice entero. Así, si p es un
+objeto Persona, con p[0] se accede al nombre, p[1] al sexo p[2] al DNI, p[3] a la fecha de
+nacimiento y p[4] a la edad. En caso de asignar p[4] simplemente el valor es descartado. Observar
+que el tipo del indizador debe ser capaz almacenar valores de tipo int, char, DateTime y string.
+
 
 
 static void Main(string[] args)
