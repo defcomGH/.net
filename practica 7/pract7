@@ -698,8 +698,8 @@ EJERCICIO 4 ====================================================================
         public int CompareTo(object obj)
         {
             String strA=this.Nombre;
-            String strB=(obj as INombrable).Nombre;
-            return strA.CompareTo(strB);
+            String strB=(obj as INombrable).Nombre; //obtengo el nombre usando el obj como tipo INombrable por lo que no me importa que sea un perro o una persona
+            return strA.CompareTo(strB);  //me ahorro trabajo usando el método CompareTo() de la clase String
         }
     }
     public class Perro  : IVendible,IAtendible,ILavable,IComparable ,INombrable
@@ -777,7 +777,6 @@ EJERCICIO 4 ====================================================================
     {
         String Nombre {set;get;}
     }
-
 EJERCICIO 5 ================================================================================================================================================================
 
   static  class Procesador
