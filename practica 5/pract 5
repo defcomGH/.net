@@ -526,6 +526,28 @@ static void Main(string[] args)
                     p3.Nombre = "ricardito";
                     p3.DNI=6745;
 
+                   
+
+                    //test ejercicio 7
+                    Console.WriteLine("test ejercicio 7");
+                    Console.WriteLine("----------------------------------------");
+
+                    ArrayList l = new ArrayList();
+                    l.Add(p1);
+                    l.Add(p2);
+                    l.Add(p3);
+                    foreach(Persona p in l)
+                    {
+                        Console.WriteLine(p[0]);
+                        Console.WriteLine(p[2]);
+                    }
+
+
+                    Console.WriteLine("----------------------------------------");
+                    
+
+                    Console.WriteLine("test ejercicio 8");
+
                     ListaDePersonas listaPersonas = new ListaDePersonas();
                     listaPersonas.Agregar(p1).Agregar(p2).Agregar(p3);
 
