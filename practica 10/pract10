@@ -367,6 +367,60 @@ class Program
         }
     }
 EJERCICIO 11 ==============================================================================================================================================================
+
+class Program
+            {
+                static void Main()
+                {
+                    List<int> l = new List<int>();
+                    List<Task<int>> tareas = new List<Task<int>>();
+                    for (int a = 1; a <= 3; a++)
+                    {
+                        for (int b = a + 2; b <= a + 4; b++)
+                        {
+                            int[] v ={a,b};
+                            tareas.Add(SumatoriaAsync(v));
+                        }
+                    }
+                    Task.WaitAll(tareas.ToArray());
+
+                    int aux=0;
+                    for (int a = 1; a <= 3; a++)
+                    {
+                        for (int b = a + 2; b <= a + 4; b++)
+                        {
+                            Task<int> t = tareas[aux++];
+                            Console.WriteLine($"Suma desde {a} hasta {b} = {t.Result}");
+                        }
+                    }
+                
+                        
+                    
+
+                    Console.ReadKey();
+                }
+
+                static async Task<int> SumatoriaAsync(int[] v)
+                {
+
+                    Task<int> t = new Task<int>( (n) => Sumatoria((int[])n) , v);
+                    t.Start();
+                    await t;
+
+                    return t.Result;                                 
+                }
+
+                static int Sumatoria (int[] v)
+                {
+                    int n=0;
+                    for(int i=v[0]; i<=v[1]; i++)
+                    {
+                        n+=i;
+                    }
+                    return n;
+                }
+             
+            }
 EJERCICIO 12 ==============================================================================================================================================================
 EJERCICIO 13 ==============================================================================================================================================================
 EJERCICIO 14 ==============================================================================================================================================================
