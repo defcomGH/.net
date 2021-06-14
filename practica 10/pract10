@@ -335,6 +335,37 @@ class Program
  
     }
 EJERCICIO 10 ==============================================================================================================================================================
+
+class Program
+    {
+        static string leyenda = "Valores procesados: ";
+        static readonly object lockname = new object();
+        public static void Main()
+        {
+            List<Task> tareas = new List<Task>();
+            for (int n = 1; n <= 10; n++)
+            {
+                Task t = new Task((o) => Procesar(o), n);
+                tareas.Add(t);
+                t.Start();
+            }
+            Task.WaitAll(tareas.ToArray());
+            Console.WriteLine(leyenda);
+
+            Console.ReadKey();
+        }
+        static void Procesar(object obj)
+        {
+            
+            
+            lock(lockname)
+            {
+                 // hace algún trabajo y accede a una variable compartida;
+                 leyenda += obj + " ";
+            }
+           
+        }
+    }
 EJERCICIO 11 ==============================================================================================================================================================
 EJERCICIO 12 ==============================================================================================================================================================
 EJERCICIO 13 ==============================================================================================================================================================
