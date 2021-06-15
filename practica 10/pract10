@@ -422,6 +422,44 @@ class Program
              
             }
 EJERCICIO 12 ==============================================================================================================================================================
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Task<int>> tareas = new List<Task<int>>();
+
+            for(int n=1; n<=10; n++)
+            {
+                tareas.Add(SumatoriaAsync(n));
+            }
+
+            for(int n=0; n<10 ; n++)
+            {
+                Console.WriteLine(tareas[n].Result);  //se imprimen en orden pero no implica que hayan terminado en orden
+            }
+            Console.ReadKey();
+        }
+
+        static async Task<int> SumatoriaAsync(int n)
+        {
+            Task<int> t = new Task<int>( (o) => Sumatoria((int)o) ,n);
+            t.Start();
+            await t;
+            return t.Result;  
+        }
+
+        static int Sumatoria (int n)
+        {
+            int suma = 0;
+            for(int i=1; i<n ; i++)
+            {
+                suma+=i;
+            }
+            return suma;
+        }
+
+    }
 EJERCICIO 13 ==============================================================================================================================================================
 EJERCICIO 14 ==============================================================================================================================================================
 EJERCICIO 15 ==============================================================================================================================================================
