@@ -501,4 +501,45 @@ class Program
        }
     }
 EJERCICIO 14 ==============================================================================================================================================================
+
+ class Program
+    {
+        static void Main(string[] args)
+        {
+            Task<int> t = leerArchivoAsync(Console.ReadLine()); 
+            Console.WriteLine(t.Result + " palabras");
+            Console.ReadKey();
+        }
+
+       static async Task<int> leerArchivoAsync (string nombre)
+       {
+           Task<string> t = new Task<string>(()=> leerArchivo(nombre));
+           t.Start();
+           await t;
+           
+           return t.Result.Split().Length;
+       }
+
+       static string leerArchivo(string nombre)
+       {
+           StreamReader st=null;
+           StringBuilder str = new StringBuilder("");
+           try{
+               st = new StreamReader(nombre);
+
+               while(!st.EndOfStream)
+               {
+                   str.Append(st.ReadLine() + '\n');
+               }
+           }
+           catch(Exception e){
+               Console.WriteLine(e.Message);
+           }
+           finally{
+              st.Dispose();
+           }
+
+           return str.ToString();
+       }
+    }
 EJERCICIO 15 ==============================================================================================================================================================
